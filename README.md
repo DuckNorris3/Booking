@@ -1,28 +1,37 @@
 # Booking
-TentHop
-Item page for an app which connects users to hosts with campsites, cabins and other alternative lodgings. Page provides details on a site including available dates, booking service, images, available amenities.
 
-Related Projects
-https://github.com/DuckNorris3/Campsite-Host-Info
-https://github.com/DuckNorris3/...
-https://github.com/DuckNorris3/Claire-Proxy
+> Booking module for campsite and cabin reservations
 
+## Related Projects
 
-Table of Contents
-Usage
-Requirements
-Development
-Usage
-Some usage instructions
+ - https://github.com/DuckNorris3/Campsite-Host-Info
+ - https://github.com/DuckNorris3/...
+ - https://github.com/DuckNorris3/Claire-Proxy
 
-Requirements
-An nvmrc file is included if using nvm.
+## Table of Contents
 
-Node 6.13.0
-etc
-Development
-Installing Dependencies
+1. [Usage](#Usage)
+1. [Requirements](#requirements)
+1. [Development](#development)
+
+## Usage
+
+> Some usage instructions
+
+## Requirements
+
+An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+
+- Node 6.13.0
+- etc
+
+## Development
+
+### Installing Dependencies
+
 From within the root directory:
 
+```sh
 npm install -g webpack
 npm install
+```

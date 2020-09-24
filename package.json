@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/DuckNorris3/Booking#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "faker": "^5.1.0",
     "mongoose": "^5.10.6",
     "save-dev": "0.0.1-security"

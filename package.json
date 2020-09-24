@@ -1,0 +1,26 @@
+{
+  "name": "Booking",
+  "version": "1.0.0",
+  "description": "> Booking module for campsite and cabin reservations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DuckNorris3/Booking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DuckNorris3/Booking/issues"
+  },
+  "homepage": "https://github.com/DuckNorris3/Booking#readme",
+  "dependencies": {
+    "faker": "^5.1.0",
+    "mongoose": "^5.10.6",
+    "save-dev": "0.0.1-security"
+  }
+}

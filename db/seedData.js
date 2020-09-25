@@ -1,11 +1,8 @@
-// const db = require('./index.js');
-// const seedData = require('./mockData.js');
+const db = require('./index.js');
+const Site = require('./Site');
+const seed = require('./mockData.js');
 
-// const seed = seedData;
-
-// const addSampleData = () => {
-//   db.Site.create(seed)
-//   .then(() => console.log('did it'))
-// }
-
-// addSampleData();
+const addSampleData = function() {
+  Site.create(seed.data)
+}
+addSampleData();

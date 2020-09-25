@@ -10,14 +10,11 @@ const makeDates = function(start, end) {
   return arr;
 };
 
-function generateSites() {
+const generateSites = function() {
   let sites = [];
   let discounts = [null, .2, .3]
   for (let id = 1; id <= 100; id ++) {
-    let now = new Date();
-    let oneYr = new Date();
-    oneYr.setYear(now.getFullYear() + 1)
-    let availability = makeDates(now, oneYr);
+    let availability = makeDates(new Date('2020-10-05'), new Date('2020-12-31'));
     let price = faker.commerce.price(5, 300);
     let minStay = faker.random.number({min: 1, max: 4});
     let maxGuests = faker.random.number({min: 1, max: 15});
@@ -33,9 +30,8 @@ function generateSites() {
   }
   return {"data": sites }
 }
-//first half 20% discount
-let seedData = generateSites();
-//let moreData = generateSites(.3, 51, 100)
-//seedData = seedData.data.concat(moreData.data);
+const seedData = generateSites();
+//fs.writeFileSync('data.json', JSON.stringify(seedData))
 
-fs.writeFileSync('data.json', JSON.stringify(seedData))
+
+module.exports = seedData;

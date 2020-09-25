@@ -10,9 +10,10 @@ const makeDates = function(start, end) {
   return arr;
 };
 
-function generateSites() {
+const generateSites = function() {
   let sites = [];
   let discounts = [null, .2, .3]
+  debugger;
   for (let id = 1; id <= 100; id ++) {
     let now = new Date();
     let oneYr = new Date();
@@ -33,9 +34,8 @@ function generateSites() {
   }
   return {"data": sites }
 }
-//first half 20% discount
-let seedData = generateSites();
-//let moreData = generateSites(.3, 51, 100)
-//seedData = seedData.data.concat(moreData.data);
+const seedData = generateSites();
 
-fs.writeFileSync('data.json', JSON.stringify(seedData))
+//fs.writeFileSync('data.json', JSON.stringify(seedData))
+
+module.exports = seedData;

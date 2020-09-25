@@ -13,7 +13,6 @@ const makeDates = function(start, end) {
 const generateSites = function() {
   let sites = [];
   let discounts = [null, .2, .3]
-  debugger;
   for (let id = 1; id <= 100; id ++) {
     let availability = makeDates(new Date('2020-10-05'), new Date('2020-12-31'));
     let price = faker.commerce.price(5, 300);

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js",
-    "db-seed": "node db/seedData.js"
+    "db-seed": "node db/seedData.js",
+    "build": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,17 @@
     "faker": "^5.1.0",
     "jest": "^26.4.2",
     "mongoose": "^5.10.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "save-dev": "0.0.1-security"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

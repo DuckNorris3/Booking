@@ -14,9 +14,24 @@ class App extends React.Component {
     this.state = {
       price: sampleSite[0].price,
       maxGuests: sampleSite[0].maxGuests,
-      discount: sampleSite[0].weekdayDisc
+      discount: sampleSite[0].weekdayDisc,
     }
   }
+  //calculate price function
+    //inputs: check in date, checkout date and weeknight percent off
+    //IF discount exists:
+      //count weeknights and weekends
+      //set discount var to price times percent off
+      //set totalSaved to discount * weekNightCount
+      //set weeknightPrice to price - discount
+      //set total to weeknightPrice * weekNightCount + price * weekEndCount
+      //set totalNights = weeknight count + weekend count
+    //ELSE
+      //set totalNights = count nights
+      //set total = price * totalNights
+    //setState {savings: totalSaved, average: total/number of nights, total: total}
+
+
   render() {
     console.log(sampleSite);
     return (

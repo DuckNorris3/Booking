@@ -5,6 +5,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 const PORT = process.env.port || 3002;
 
+//Load static site
+app.use(express.static(__dirname + '/../public/dist'));
 //BOOKING DATA REQUEST
 app.get('/:id', (req, res) => {
   var site = req.params;

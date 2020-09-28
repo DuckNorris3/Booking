@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import sampleSite from '../sampleData/sampleSite';
 import Price from './components/Price.jsx';
-import CheckInOut from './components/CheckInOut.jsx';
+import CheckIn from './components/CheckIn.jsx';
+import CheckOut from './components/CheckOut.jsx';
 import Guests from './components/Guests.jsx';
 import Calendar from './components/Calendar.jsx';
 import BookButton from './components/BookButton.jsx';
@@ -15,6 +16,8 @@ class App extends React.Component {
       price: sampleSite[0].price,
       maxGuests: sampleSite[0].maxGuests,
       discount: sampleSite[0].weekdayDisc,
+      checkin: null,
+      checkout: null
     }
   }
   //calculate price function
@@ -36,20 +39,13 @@ class App extends React.Component {
     console.log(sampleSite);
     return (
       <div>
-        <h3>Booking Calendar initial view</h3>
+        <h3>Booking Calendar</h3>
         <Price price= {this.state.price}/>
-        <CheckInOut/>
+        <CheckIn checkin= {this.state.checkin}/>
+        <CheckOut checkout= {this.state.checkout}/>
         <Guests maxGuests= {this.state.maxGuests}/>
         <BookButton/>
-        <h3>Booking Calendar checkin/out select view</h3>
-        <Price price= {this.state.price}/>
-        <CheckInOut/>
-        <Guests maxGuests= {this.state.maxGuests}/>
         <Calendar/>
-        <h3>Booking Calendar dates selected view</h3>
-        <Price price= {this.state.price}/>
-        <CheckInOut/>
-        <Guests maxGuests= {this.state.maxGuests}/>
         <Totals discount= {this.state.discount}/>
         <BookButton/>
       </div>

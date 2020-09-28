@@ -3,8 +3,17 @@ const Site = require('./Site');
 const seed = require('./mockData.js');
 const mongoose = require('mongoose');
 
-const addSampleData = function() {
-  //drop db
+const dropDb = () => {
+  Site.remove({}, (err) => {
+    if (err) {
+      console.log("here's the problem: ", err);
+      throw err;
+    }
+    console.log("db fresh and clean");
+  });
+}
+
+const addSampleData = () => {
   Site.create(seed.data)
   .then(() => {
     console.log("db SEEDED ALRIGHT");
@@ -16,5 +25,7 @@ const addSampleData = function() {
     console.log("here's the problem: ", err);
   });
 };
-  //close connection
+
+dropDb();
+
 addSampleData();

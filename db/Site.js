@@ -2,10 +2,6 @@
  const db = require('./index.js');
 mongoose.Promise = global.Promise;
 
-// const dateSchema = new mongoose.Schema({
-//   date: Date,
-//   available: Boolean
-// })
 const siteSchema = new mongoose.Schema({
   siteId: Number,
   price: Number,

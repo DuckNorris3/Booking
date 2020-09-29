@@ -1,4 +1,5 @@
 import React from 'react';
+//Totals is not visible at start
 
 const Totals = ({discount}) => {
   return (

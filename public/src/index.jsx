@@ -24,19 +24,6 @@ class App extends React.Component {
     }
   }
 
-  getSiteData(callback) {
-    //axios request
-    axios.get('/1')
-    //callback
-    .catch(err => {
-      console.log(err);
-    })
-    .then(res => {
-      console.log("received data", res.data[0])
-      callback(res.data[0])
-    })
-    //set state with data
-  }
 
   componentDidMount() {
     getSiteData(4, (siteData) => {
@@ -50,19 +37,6 @@ class App extends React.Component {
       })
     })
   }
-  //calculate price function
-    //inputs: check in date, checkout date and weeknight percent off
-    //IF discount exists:
-      //count weeknights and weekends
-      //set discount var to price times percent off
-      //set totalSaved to discount * weekNightCount
-      //set weeknightPrice to price - discount
-      //set total to weeknightPrice * weekNightCount + price * weekEndCount
-      //set totalNights = weeknight count + weekend count
-    //ELSE
-      //set totalNights = count nights
-      //set total = price * totalNights
-    //setState {savings: totalSaved, average: total/number of nights, total: total}
 
 
   render() {

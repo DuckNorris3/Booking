@@ -3,7 +3,6 @@ const Sites = require('../db/Site.js')
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
-const PORT = process.env.port || 3002;
 
 //Load static site
 app.use(express.static(__dirname + '/../public/dist'));
@@ -19,6 +18,8 @@ app.get('/:id', (req, res) => {
   })
 })
 
-app.listen(PORT, ()=> {
-  console.log(`listening on ${PORT}`);
+app.get('/api/test', async (req, res) => {
+  res.json({message: 'pass!'})
 })
+
+module.exports = app;

@@ -12,7 +12,7 @@ app.get('/:id', (req, res) => {
   var site = req.params;
   Sites.find({siteId : site.id}, (err, results) => {
     if (err) {
-      res.sendStatus(400);
+      throw err
     }
     res.status(200).send(results);
   })

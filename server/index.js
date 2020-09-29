@@ -1,5 +1,6 @@
 const express = require('express');
-const Sites = require('../db/Site.js')
+const Sites = require('../db/Site.js');
+const PORT = process.env.port || 3002;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
@@ -21,5 +22,13 @@ app.get('/:id', (req, res) => {
 app.get('/api/test', async (req, res) => {
   res.json({message: 'pass!'})
 })
+let server;
+const start = () => { server = app.listen(PORT, ()=> {
+  console.log(`listening on ${PORT}`);
+})}
+const close = server ? server.close : () => {};
 
-module.exports = app;
+module.exports = {
+  start,
+  close
+}

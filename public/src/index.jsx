@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import sampleSite from '../sampleData/sampleSite';
+import getSiteData from '../helpers/getSiteData';
+import sampleSite from '../helpers/sampleSite';
 import Price from './components/Price.jsx';
 import CheckIn from './components/CheckIn.jsx';
 import CheckOut from './components/CheckOut.jsx';
@@ -14,31 +15,18 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      price: sampleSite[0].price,
-      maxGuests: sampleSite[0].maxGuests,
-      discount: sampleSite[0].weekdayDisc,
+      price: null,
+      maxGuests: null,
+      discount: null,
       checkin: null,
       checkout: null,
       total: null
     }
   }
 
-  getSiteData(callback) {
-    //axios request
-    axios.get('/1')
-    //callback
-    .catch(err => {
-      console.log(err);
-    })
-    .then(res => {
-      console.log("received data", res.data[0])
-      callback(res.data[0])
-    })
-    //set state with data
-  }
 
   componentDidMount() {
-    this.getSiteData((siteData) => {
+    getSiteData(4, (siteData) => {
       console.log(siteData);
       this.setState({
         price: siteData.price,
@@ -49,19 +37,6 @@ class App extends React.Component {
       })
     })
   }
-  //calculate price function
-    //inputs: check in date, checkout date and weeknight percent off
-    //IF discount exists:
-      //count weeknights and weekends
-      //set discount var to price times percent off
-      //set totalSaved to discount * weekNightCount
-      //set weeknightPrice to price - discount
-      //set total to weeknightPrice * weekNightCount + price * weekEndCount
-      //set totalNights = weeknight count + weekend count
-    //ELSE
-      //set totalNights = count nights
-      //set total = price * totalNights
-    //setState {savings: totalSaved, average: total/number of nights, total: total}
 
 
   render() {

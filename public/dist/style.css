@@ -1,0 +1,42 @@
+div {
+  display: block;
+}
+
+.widget {
+  position: relative;
+  width: 319px;
+  font-family: "Calibre", Helvetica, Arial, sans-serif;
+  /* look into what these are doing: */
+  z-index: 99;
+  box-sizing: border-box;
+  font-weight: 400;
+}
+
+.banner {
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #ebebeb;
+  min-height: 74px;
+  padding: 13px 10px;
+}
+
+span {
+  font-size: 16px
+}
+
+.price {
+  -webkit-align-items: center;
+  align-items: center;
+  display: flex;
+  color: #333333;
+  font-size: 26px;
+  line-height: 0.9;
+  margin: 2px 0 0;
+  min-height: 2.6rem;
+}
+
+.well-content {
+  background-color: white;
+  border: 1px solid #ebebeb;
+  padding: 10px;
+}

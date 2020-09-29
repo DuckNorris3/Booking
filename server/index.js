@@ -10,10 +10,9 @@ app.use(express.static(__dirname + '/../public/dist'));
 //BOOKING DATA REQUEST
 app.get('/:id', (req, res) => {
   var site = req.params;
-  console.log(site.id, "<-----siteid")
   Sites.find({siteId : site.id}, (err, results) => {
     if (err) {
-      throw err
+      console.log(err);
     }
     res.status(200).send(results);
   })
@@ -23,9 +22,7 @@ app.get('/api/test', async (req, res) => {
   res.json({message: 'pass!'})
 })
 let server;
-const start = () => { server = app.listen(PORT, ()=> {
-  console.log(`listening on ${PORT}`);
-})}
+const start = () => { server = app.listen(PORT, () => {})}
 const close = server ? server.close : () => {};
 
 module.exports = {

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import sampleSite from '../sampleData/sampleSite';
+import getSiteData from '../helpers/getSiteData';
+import sampleSite from '../helpers/sampleSite';
 import Price from './components/Price.jsx';
 import CheckIn from './components/CheckIn.jsx';
 import CheckOut from './components/CheckOut.jsx';
@@ -14,9 +15,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      price: sampleSite[0].price,
-      maxGuests: sampleSite[0].maxGuests,
-      discount: sampleSite[0].weekdayDisc,
+      price: null,
+      maxGuests: null,
+      discount: null,
       checkin: null,
       checkout: null,
       total: null
@@ -38,7 +39,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getSiteData((siteData) => {
+    getSiteData(4, (siteData) => {
       console.log(siteData);
       this.setState({
         price: siteData.price,

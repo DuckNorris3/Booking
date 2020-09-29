@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import sampleSite from '../sampleData/sampleSite';
 import Price from './components/Price.jsx';
 import CheckIn from './components/CheckIn.jsx';
@@ -21,6 +22,33 @@ class App extends React.Component {
       total: null
     }
   }
+
+  getSiteData(callback) {
+    //axios request
+    axios.get('/1')
+    //callback
+    .catch(err => {
+      console.log(err);
+    })
+    .then(res => {
+      console.log("received data", res.data[0])
+      callback(res.data[0])
+    })
+    //set state with data
+  }
+
+  componentDidMount() {
+    this.getSiteData((siteData) => {
+      console.log(siteData);
+      this.setState({
+        price: siteData.price,
+        maxGuests: siteData.maxGuests,
+        discount: siteData.weekdayDisc,
+        minStay: siteData.minStay,
+        availability: siteData.availability
+      })
+    })
+  }
   //calculate price function
     //inputs: check in date, checkout date and weeknight percent off
     //IF discount exists:
@@ -37,7 +65,7 @@ class App extends React.Component {
 
 
   render() {
-    console.log(sampleSite);
+    console.log(this.state.price)
     return (
       <div>
         <h3>Booking Calendar</h3>

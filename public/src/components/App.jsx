@@ -23,6 +23,19 @@ z-index: 99;
 box-sizing: border-box;
 font-weight: 400;
 `;
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-left: -10px;
+  margin-right: -10px;
+`;
+const Col = styled.div`
+  background-color: white;
+  padding: 10px;
+  border-right: 1px solid #ebebeb;
+`;
 
 function App() {
   const[siteData, setSiteData] = useState(null);
@@ -46,16 +59,22 @@ function App() {
             <Price price= {siteData.price} />
           </div>
         </div>
-        <div className="well">
-          <div>
-            <CheckIn/>
-            <CheckOut/>
-            <Guests maxGuests= {siteData.maxGuests}/>
+          <div className="well-content">
+            <FlexRow>
+              <Col>
+                <CheckIn/>
+              </Col>
+              <Col>
+                <CheckOut/>
+              </Col>
+              <Col>
+                <Guests maxGuests= {siteData.maxGuests}/>
+              </Col>
+            </FlexRow>
           </div>
-          <div>
+          <div className="well-content">
             <RequestBooking/>
           </div>
-        </div>
         <div>
           <Calendar/>
         </div>

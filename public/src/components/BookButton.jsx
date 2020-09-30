@@ -25,10 +25,6 @@ const Button = styled.button`
     border: 3px solid #40d9ac;
   }
 `;
-const FlashButton = styled(Button)`
-  color: #40d9ac;
-  border: 3px solid #40d9ac;
-`
 
 const RequestBooking = (props) => {
   if (props.total) {

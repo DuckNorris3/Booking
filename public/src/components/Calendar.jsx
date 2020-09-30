@@ -44,7 +44,7 @@ const Day = styled.div`
     `}
   `;
 
-  export function Calendar() {
+  export function Calendar({handleClick}) {
     const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_OF_THE_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -56,19 +56,48 @@ const Day = styled.div`
     const [month, setMonth] = useState(date.getMonth());
     const [year, setYear] = useState(date.getFullYear());
     const [startDay, setStartDay] = useState(getFirstDayOfMonth(date));
+    const [checkIn, setCheckIn] = useState(null);
+    const [checkOut, setCheckOut] = useState(null);
+    const [selectionCount, setSelectCount] = useState(0);
 
     useEffect(() => {
       setDay(date.getDate());
       setMonth(date.getMonth());
       setYear(date.getFullYear());
       setStartDay(getFirstDayOfMonth(date));
+      setCheckIn(grabCheckIn(date, checkIn, selectionCount));
+      setCheckOut(grabCheckOut(date, checkOut, selectionCount));
     }, [date]);
 
+
+
+    function grabCheckIn(date, checkIn, selectionCount) {
+      debugger;
+      if (selectionCount === 1){
+        return date;
+      } else {
+        return checkIn;
+      }
+    }
+    function grabCheckOut(date, checkOut, selectionCount) {
+      debugger;
+      if (selectionCount === 2){
+        return date;
+      } else {
+        return checkOut;
+      }
+    }
+
+    console.log(checkIn, "<----checkin", checkOut, "<---- checkout");
+
     function getFirstDayOfMonth(date) {
-      console.log("selected date and month", date, date.getMonth() + 1)
-      console.log("first day of the month", new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ))
+      console.log("selected date and month", date)
+      // console.log("first day of the month", new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ))
       return new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ).getDay();
     }
+
+
+    //onClick function which saves date value and passes it to Appf
     return (
       <Frame>
         <Header>
@@ -93,7 +122,12 @@ const Day = styled.div`
                 key={index}
                 isToday={d === today.getDate()}
                 isSelected={d === day}
-                onClick={() => setDate(new Date(year, month, d))}
+                onClick={() => {
+                    setDate(new Date(year, month, d));
+                    debugger;
+                    setSelectCount(selectionCount + 1)
+                  }
+                }
               >
                 {d > 0 ? d : ''}
               </Day>

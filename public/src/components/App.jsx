@@ -39,6 +39,14 @@ const Col = styled.div`
 
 function App() {
   const[siteData, setSiteData] = useState(null);
+  const[checkIn, setCheckIn] = useState(null);
+  const[checkOut, setCheckOut] = useState(null);
+
+  function updateCheckInOut(date) {
+    debugger;
+    setCheckIn(date);
+    console.log("DATES", date, checkIn);
+  }
 
   useEffect(() => {
     axios.get(`/1`)
@@ -76,7 +84,7 @@ function App() {
             <RequestBooking/>
           </div>
         <div>
-          <Calendar/>
+          <Calendar handleClick= {(date) => updateCheckInOut(date)}/>
         </div>
         <div>
           <Totals/>

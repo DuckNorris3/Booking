@@ -46,13 +46,15 @@ function App() {
             <Price price= {siteData.price} />
           </div>
         </div>
-        <div>
-          <CheckIn/>
-          <CheckOut/>
-          <Guests maxGuests= {siteData.maxGuests}/>
-        </div>
-        <div>
-          <RequestBooking/>
+        <div className="well">
+          <div>
+            <CheckIn/>
+            <CheckOut/>
+            <Guests maxGuests= {siteData.maxGuests}/>
+          </div>
+          <div>
+            <RequestBooking/>
+          </div>
         </div>
         <div>
           <Calendar/>

@@ -12,7 +12,10 @@ min-height: 2.6rem;`
 
 const Price = ({price}) => {
   return(
-    <div>${price}</div>
+    <div>
+      <Money>${price}</Money>
+      <span>per night</span>
+    </div>
   )
 }
 

@@ -41,7 +41,11 @@ function App() {
   if (siteData) {
     return (
       <Container>
-        <Price price= {siteData.price} />
+        <div className="banner">
+          <div className="price-wrapper">
+            <Price price= {siteData.price} />
+          </div>
+        </div>
         <div>
           <CheckIn/>
           <CheckOut/>

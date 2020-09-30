@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const getSiteData = (id, callback)=> {
-  debugger;
   axios.get(`/${id}`)
   .catch(err => {
     console.log(err);

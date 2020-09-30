@@ -26,8 +26,8 @@ const Button = styled.button`
   }
 `;
 
-const RequestBooking = (props) => {
-  if (props.total) {
+const RequestBooking = ({total, handleClick}) => {
+  if (total) {
     return (
       <div>
       <Button>Book</Button>
@@ -36,7 +36,7 @@ const RequestBooking = (props) => {
   }
   return (
     <div>
-      <Button>Request Booking</Button>
+      <Button onClick= {() => handleClick()}>Request Booking</Button>
     </div>
     );
 }

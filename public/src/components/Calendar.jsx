@@ -44,7 +44,7 @@ const Day = styled.div`
     `}
   `;
 
-  export function Calendar({handleClick}) {
+  export function Calendar({showCalendar, handleClick}) {
     const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_OF_THE_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -72,16 +72,17 @@ const Day = styled.div`
 
 
     function grabCheckIn(date, checkIn, selectionCount) {
-      debugger;
       if (selectionCount === 1){
+        handleClick(date);
         return date;
       } else {
         return checkIn;
       }
     }
+
     function grabCheckOut(date, checkOut, selectionCount) {
-      debugger;
       if (selectionCount === 2){
+        handleClick(date);
         return date;
       } else {
         return checkOut;
@@ -95,47 +96,48 @@ const Day = styled.div`
       // console.log("first day of the month", new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ))
       return new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ).getDay();
     }
-
-
     //onClick function which saves date value and passes it to Appf
-    return (
-      <Frame>
-        <Header>
-          <Button onClick={() => setDate(new Date(year, month - 1, day))}>Prev</Button>
-          <div>
-            {MONTHS[month]} {year}
-          </div>
-          <Button onClick={() => setDate(new Date(year, month + 1, day))}>Next</Button>
-        </Header>
-        <Body>
-          {DAYS_OF_THE_WEEK.map((d, index) => (
-            <Day key={index}>
-              <strong>{d}</strong>
-            </Day>
-          ))}
-          {Array(DAYS[month] + (startDay - 1))
-          .fill(null)
-          .map((_, index) => {
-            const d = index - (startDay - 2);
-            return (
-              <Day
-                key={index}
-                isToday={d === today.getDate()}
-                isSelected={d === day}
-                onClick={() => {
-                    setDate(new Date(year, month, d));
-                    debugger;
-                    setSelectCount(selectionCount + 1)
-                  }
-                }
-              >
-                {d > 0 ? d : ''}
+    if (!showCalendar) {
+      return null;
+    } else {
+      return (
+        <Frame>
+          <Header>
+            <Button onClick={() => setDate(new Date(year, month - 1, day))}>Prev</Button>
+            <div>
+              {MONTHS[month]} {year}
+            </div>
+            <Button onClick={() => setDate(new Date(year, month + 1, day))}>Next</Button>
+          </Header>
+          <Body>
+            {DAYS_OF_THE_WEEK.map((d, index) => (
+              <Day key={index}>
+                <strong>{d}</strong>
               </Day>
-            );
-          })}
-        </Body>
-      </Frame>
-    );
+            ))}
+            {Array(DAYS[month] + (startDay - 1))
+            .fill(null)
+            .map((_, index) => {
+              const d = index - (startDay - 2);
+              return (
+                <Day
+                  key={index}
+                  isToday={d === today.getDate()}
+                  isSelected={d === day}
+                  onClick={() => {
+                      setDate(new Date(year, month, d));
+                      setSelectCount(selectionCount + 1)
+                    }
+                  }
+                >
+                  {d > 0 ? d : ''}
+                </Day>
+              );
+            })}
+          </Body>
+        </Frame>
+      );
+    }
   }
 
 

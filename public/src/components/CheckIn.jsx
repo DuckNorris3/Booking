@@ -1,7 +1,7 @@
 import React from 'react';
 
-const CheckIn = ({checkin, checkout}) => {
-  if (!checkin) {
+const CheckIn = (props) => {
+  if (props.checkIn === null) {
     return (
       <div>
         <div className="label">Check in</div>
@@ -12,7 +12,7 @@ const CheckIn = ({checkin, checkout}) => {
   return (
   <div>
     <div className="label">Check in</div>
-    <div>{checkin}</div>
+    <div>{props.checkIn}</div>
   </div>
   )
 }

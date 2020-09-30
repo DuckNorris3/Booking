@@ -41,13 +41,20 @@ function App() {
   const[siteData, setSiteData] = useState(null);
   const[checkIn, setCheckIn] = useState(null);
   const[checkOut, setCheckOut] = useState(null);
+  const[showCalendar, setShowCalendar] = useState(false);
 
-  function updateCheckInOut(date) {
-    debugger;
-    setCheckIn(date);
-    console.log("DATES", date, checkIn);
+  function updateCheckInOut(date, checkIn, checkOut) {
+    const dateString = date.toString().split(' ').slice(1, 3).join(' ');
+    if(!checkIn) {
+      setCheckIn(dateString);
+    } else if (checkIn && !checkOut) {
+      setCheckOut(dateString);
+    }
   }
-
+  console.log("DATES", checkIn, checkOut);
+  function toggleCalendar() {
+    setShowCalendar(!showCalendar)
+  }
   useEffect(() => {
     axios.get(`/1`)
       .then((result) => {
@@ -70,10 +77,10 @@ function App() {
           <div className="well-content">
             <FlexRow>
               <Col>
-                <CheckIn/>
+                <CheckIn checkIn= {checkIn}/>
               </Col>
               <Col>
-                <CheckOut/>
+                <CheckOut checkOut= {checkOut}/>
               </Col>
               <Col>
                 <Guests maxGuests= {siteData.maxGuests}/>
@@ -81,10 +88,10 @@ function App() {
             </FlexRow>
           </div>
           <div className="well-content">
-            <RequestBooking/>
+            <RequestBooking handleClick= { () => toggleCalendar() }/>
           </div>
         <div>
-          <Calendar handleClick= {(date) => updateCheckInOut(date)}/>
+          <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)}/>
         </div>
         <div>
           <Totals/>

@@ -4,13 +4,14 @@ const CheckOut = ({checkin, checkout}) => {
   if (!checkout) {
     return (
       <div>
-        <h4>Check Out</h4>
+        <div className="label">Check out</div>
+        <span>Select date</span>
       </div>
     )
   }
   return (
   <div>
-    <h4>Check Out</h4>
+     <div className="label">Check out</div>
     <div>{checkout}</div>
   </div>
   )

@@ -1,10 +1,21 @@
 import React from 'react';
-//Price starts with a default price in the upper left corner
-//this persists through checkin/checkout view
-//once number of days is known, price is recalculated from totals
+import styled from 'styled-components';
+const Money = styled.div`
+-webkit-align-items: center;
+align-items: center;
+display: flex;
+color: #333333;
+font-size: 26px;
+line-height: 0.9;
+margin: 2px 0 0;
+min-height: 2.6rem;`
+
 const Price = ({price}) => {
   return(
-    <div>${price}</div>
+    <div>
+      <Money>${price}</Money>
+      <span>per night</span>
+    </div>
   )
 }
 

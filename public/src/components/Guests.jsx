@@ -3,7 +3,7 @@ import React from 'react';
 const Guests = ({maxGuests}) => {
   return (
     <div>
-      <button>-</button><label>Guests</label><button>+</button>
+      <span>-</span><div className="label">Guests</div><span>+</span>
     </div>
   )
 }

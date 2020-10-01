@@ -26,17 +26,13 @@ const Button = styled.button`
   }
 `;
 
-const RequestBooking = ({total, handleClick}) => {
-  if (total) {
-    return (
-      <div>
-      <Button>Book</Button>
-    </div>
-    );
+const RequestBooking = ({handleClick, showCalendar, checkIn, checkOut}) => {
+  if (showCalendar) {
+    return null;
   }
   return (
     <div>
-      <Button onClick= {() => handleClick()}>Request Booking</Button>
+      <Button onClick= {checkIn && checkOut ? () => {} : () =>  handleClick()}>Request Booking</Button>
     </div>
     );
 }

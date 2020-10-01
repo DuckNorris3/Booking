@@ -44,17 +44,28 @@ function App() {
   const[showCalendar, setShowCalendar] = useState(false);
 
   function updateCheckInOut(date, checkIn, checkOut) {
+    debugger;
     const dateString = date.toString().split(' ').slice(1, 3).join(' ');
     if(!checkIn) {
       setCheckIn(dateString);
     } else if (checkIn && !checkOut) {
       setCheckOut(dateString);
+      showTotals();
     }
   }
-  console.log("DATES", checkIn, checkOut);
+
+  function showTotals() {
+    //close calendar
+    //show button
+    toggleCalendar();
+    //update price to average per night
+    //if savings, show savings
+    //show subtotal
+  }
   function toggleCalendar() {
     setShowCalendar(!showCalendar)
   }
+
   useEffect(() => {
     axios.get(`/1`)
       .then((result) => {
@@ -67,6 +78,7 @@ function App() {
     }, []);
 
   if (siteData) {
+    console.log(siteData.availability)
     return (
       <Container>
         <div className="banner">
@@ -77,10 +89,10 @@ function App() {
           <div className="well-content">
             <FlexRow>
               <Col>
-                <CheckIn checkIn= {checkIn}/>
+                <CheckIn checkIn= {checkIn} handleClick= { () => toggleCalendar() } showCalendar= {showCalendar}/>
               </Col>
               <Col>
-                <CheckOut checkOut= {checkOut}/>
+                <CheckOut checkOut= {checkOut} handleClick= { () => toggleCalendar() } showCalendar= {showCalendar}/>
               </Col>
               <Col>
                 <Guests maxGuests= {siteData.maxGuests}/>
@@ -88,7 +100,7 @@ function App() {
             </FlexRow>
           </div>
           <div className="well-content">
-            <RequestBooking handleClick= { () => toggleCalendar() }/>
+            <RequestBooking handleClick= { () => toggleCalendar() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut}/>
           </div>
         <div>
           <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)}/>
@@ -107,43 +119,5 @@ function App() {
   }
 }
 
-
-// ReactDOM.render(<App/>, document.getElementById('app'));
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       price: null,
-//       maxGuests: null,
-//       discount: null,
-//       checkin: null,
-//       checkout: null,
-//       total: null
-//     }
-//   }
-
-
-//   componentDidMount() {
-
-//   }
-
-
-//   render() {
-//     console.log(this.state.price)
-//     return (
-//       <div>
-//         <h3>Booking Calendar</h3>
-//         <Price price= {this.state.price}/>
-//         <CheckIn checkin= {this.state.checkin}/>
-//         <CheckOut checkout= {this.state.checkout}/>
-//         <Guests maxGuests= {this.state.maxGuests}/>
-//         <RequestBooking total= {this.state.total}/>
-//         <Calendar/>
-//         <Totals discount= {this.state.discount}/>
-//       </div>
-//     )
-//   }
-
-// }
 
 export default App;

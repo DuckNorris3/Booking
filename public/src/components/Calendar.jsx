@@ -72,6 +72,7 @@ const Day = styled.div`
 
 
     function grabCheckIn(date, checkIn, selectionCount) {
+      debugger;
       if (selectionCount === 1){
         handleClick(date);
         return date;
@@ -81,7 +82,9 @@ const Day = styled.div`
     }
 
     function grabCheckOut(date, checkOut, selectionCount) {
+      debugger;
       if (selectionCount === 2){
+        setSelectCount(0);
         handleClick(date);
         return date;
       } else {
@@ -89,7 +92,7 @@ const Day = styled.div`
       }
     }
 
-    console.log(checkIn, "<----checkin", checkOut, "<---- checkout");
+    //console.log(checkIn, "<----checkin", checkOut, "<---- checkout");
 
     function getFirstDayOfMonth(date) {
       console.log("selected date and month", date)
@@ -119,6 +122,7 @@ const Day = styled.div`
             .fill(null)
             .map((_, index) => {
               const d = index - (startDay - 2);
+              console.log(new Date(year, month, d), new Date("2020-10-05T00:00:00.000Z"))
               return (
                 <Day
                   key={index}
@@ -126,7 +130,7 @@ const Day = styled.div`
                   isSelected={d === day}
                   onClick={() => {
                       setDate(new Date(year, month, d));
-                      setSelectCount(selectionCount + 1)
+                      setSelectCount(selectionCount + 1);
                     }
                   }
                 >

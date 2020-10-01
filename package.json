@@ -13,6 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/DuckNorris3/Booking.git"
   },
+  "jest": {
+    "collectCoverage": true
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,6 +25,8 @@
   "homepage": "https://github.com/DuckNorris3/Booking#readme",
   "dependencies": {
     "axios": "^0.20.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "express": "^4.17.1",
     "faker": "^5.1.0",
     "jest": "^26.4.2",
@@ -35,8 +40,11 @@
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "@testing-library/react": "^11.0.4",
+    "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "nodemon": "^2.0.4",
+    "react-test-renderer": "^16.13.1",
     "supertest": "^5.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
+import Tooltip from "react-simple-tooltip"
 
 const Frame = styled.div`
   border: 1px solid lightgrey;
@@ -32,6 +33,14 @@ const Day = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  ${props =>
+    props.isAvailable &&
+    css`
+      &:hover {
+      color: #fff;
+      background-color: #40d9ac;
+      }
+    `}
     ${props =>
     props.isSelected &&
     css`
@@ -107,41 +116,76 @@ const Day = styled.div`
             .fill(null)
             .map((_, index) => {
               const d = index - (startDay - 2);
-              const evalDay = new Date(year, month, d).toString().split(' ').slice(0, 4).join(' ');
-              const available = availability[evalDay];
-              let nextDay = checkIn ? new Date(checkIn.toString()).getDate() + 1 : null;
-
-              return (
-                <Day
-                  key= {index}
-                  isSelected={d === day || checkIn ? checkIn === evalDay : false || checkOut ? checkOut === evalDay : false}
-                  isNotAvailable= {!available && d !== nextDay}
-                  onClick={() => {
-                      if (available || nextDay) {
-                        if (checkIn && !checkOut) {
-                          let comparisonDate = new Date(checkIn.toString());
-                          let prospectiveDate = new Date(year, month, d);
-                          while (comparisonDate < prospectiveDate) {
-                            let date = comparisonDate.toString().split(' ').slice(0, 4).join(' ')
-                            if (!availability[comparisonDate.toString().split(' ').slice(0, 4).join(' ')]) {
-                              debugger;
-                              //something needs to happen here to handle this situation
-                              return;
-                            }
-                            comparisonDate.setDate(comparisonDate.getDate() + 1);
-                          }
-                        }
-                        setSelected(new Date(year, month, d));
+              const evalDay = new Date(year, month, d);
+              const stringDay = evalDay.toString().split(' ').slice(0, 4).join(' ');
+              const weekDay = evalDay.getDay() > 0 && evalDay.getDay() < 6;
+              const nextDay = checkIn ? new Date(checkIn.toString()).getDate() + 1 : null;
+              const available = availability[stringDay];
+              function dateClick() {
+                if(available || nextDay) {
+                  if (checkIn && !checkOut) {
+                    let comparisonDate = new Date(checkIn.toString());
+                    let prospectiveDate = new Date(year, month, d);
+                    while (comparisonDate < prospectiveDate) {
+                      let date = comparisonDate.toString().split(' ').slice(0, 4).join(' ')
+                      if (!availability[comparisonDate.toString().split(' ').slice(0, 4).join(' ')]) {
+                        //something needs to happen here to handle this situation
+                        return;
                       }
+                      comparisonDate.setDate(comparisonDate.getDate() + 1);
                     }
                   }
-                >
-                  {d > 0 ? d : ''}
-                </Day>
-              );
+                  setSelected(new Date(year, month, d));
+                }
+              }
+              if (weekDay && available) {
+                return (
+                  <Day
+                    key= {index}
+                    isSelected={d === day || checkIn ? checkIn === stringDay : false || checkOut ? checkOut === stringDay : false}
+                    isAvailable= {available || nextDay}
+                    onClick={() => dateClick() }
+                  >
+                    <Tooltip
+                      content="Weeknight Savings!"
+                      customCss={css`
+                      white-space: nowrap;
+                      font-size: 10px;
+                      margin: 0;
+                      padding: 0;
+                      `}
+                    >
+                      <span>{d > 0 ? d : ''}</span>
+                    </Tooltip>
+                  </Day>
+                );
+              } else if (available) {
+                return (
+                  <Day
+                    key= {index}
+                    isSelected={d === day || checkIn ? checkIn === stringDay : false || checkOut ? checkOut === stringDay : false}
+                    isAvailable= {available || nextDay}
+                    onClick={ () => dateClick() }
+                  >
+                    {d > 0 ? d : ''}
+                  </Day>
+                );
+              } else {
+                return (
+                  <Day
+                    key= {index}
+                    isNotAvailable= {!available && d !== nextDay}
+                    onClick={ () => dateClick() }
+                  >
+                    {d > 0 ? d : ''}
+                  </Day>
+                );
+              }
+
             })}
           </Body>
         </Frame>
       );
     }
   }
+

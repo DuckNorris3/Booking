@@ -44,7 +44,34 @@ function App() {
   const[checkInSelect, setCheckInSelect] = useState(false);
   const[checkOutSelect, setCheckOutSelect] = useState(false);
   const[showCalendar, setShowCalendar] = useState(false);
+  const[nights, setNights] = useState(0);
+  const[discount, setDiscount] = useState(0)
+  const[totals, setTotals] = useState(0);
 
+  useEffect(() => {
+    axios.get(`/5`)
+      .then((result) => {
+        console.log("received data")
+        setSiteData(result.data[0])
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }, []);
+
+    useEffect(() => {
+      setNights(calculateNights());
+    }, [checkOut]);
+
+    useEffect(() => {
+      setDiscount(calculateDiscount());
+    }, [nights]);
+
+    useEffect(() => {
+      setTotals(calculateTotal());
+    }, [discount]);
+
+//HANDLING CHECKIN AND CHECKOUT
   function updateCheckInOut(date, checkIn, checkOut) {
     const dateString = date.toString().split(' ').slice(0, 4).join(' ');
     if(!checkIn || checkInSelect || date < new Date(checkIn.toString())) {
@@ -53,26 +80,12 @@ function App() {
       setCheckOutSelect(true);
       setCheckInSelect(false);
     } else if (checkIn) {
-      setCheckOut(dateString);
+      setCheckOut(dateString)
       setCheckOutSelect(false);
-      showTotals();
+      setShowCalendar(false);
     }
   }
-
-  function showTotals() {
-    //close calendar
-    //show button
-    setShowCalendar(false);
-    //update price to average per night
-    //if savings, show savings
-    //show subtotal
-  }
-
-  function initialButtonClick() {
-    setShowCalendar(true)
-    setCheckInSelect(true)
-  }
-
+//SELECTING VIEWS
   function selectCheckIn() {
     if(!showCalendar) {
       setShowCalendar(true);
@@ -82,8 +95,6 @@ function App() {
       setCheckOutSelect(false);
     }
   }
-  console.log("selected checkin", checkInSelect)
-  console.log("selected checkout", checkOutSelect)
 
   function selectCheckOut() {
     if(!showCalendar) {
@@ -97,24 +108,64 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    axios.get(`/1`)
-      .then((result) => {
-        console.log("received data")
-        setSiteData(result.data[0])
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    }, []);
+  function initialButtonClick() {
+    setShowCalendar(true)
+    setCheckInSelect(true)
+  }
+
+//PRICE CALCULATIONS
+  function calculateNights() {
+    if (checkOut) {
+      let count = 0;
+      let date = new Date(checkIn.toString());
+      let checkoutDate = new Date(checkOut.toString());
+      // while loop over check in date up to check out date
+      while (date < checkoutDate) {
+        count ++;
+        date.setDate(date.getDate() + 1)
+      }
+      return count;
+    }
+  }
+
+  function calculateDiscount() {
+    if(nights) {
+      if (siteData.weekdayDisc) {
+        let amountOff = siteData.price * siteData.weekdayDisc;
+        let weeknightCount = 0;
+        let date = new Date(checkIn.toString());
+        let checkoutDate = new Date(checkOut.toString());
+        while (date < checkoutDate) {
+          let day = date.getDay();
+          if (day !== 0 && day !== 6) {
+            weeknightCount++
+          }
+          date.setDate(date.getDate() + 1)
+        }
+        let totalSaved = amountOff * weeknightCount;
+        return totalSaved;
+      } else {
+        return 0;
+      }
+    }
+  }
+
+  function calculateTotal() {
+    if (nights) {
+      let subTotal = siteData.price * nights;
+      return subTotal - discount;
+    }
+  }
+
+
 
   if (siteData) {
-    console.log(siteData.availability[0])
+    console.log(siteData)
     return (
       <Container>
         <div className="banner">
           <div className="price-wrapper">
-            <Price price= {siteData.price} />
+            <Price price= {siteData.price} totals= {totals} nights= {nights}/>
           </div>
         </div>
           <div className="well-content">
@@ -131,14 +182,15 @@ function App() {
             </FlexRow>
           </div>
           <div className="well-content">
+            <div>
+              <Totals showCalendar= {showCalendar} checkOut= {checkOut} totals= {totals} discount= {discount} nights= {nights}/>
+            </div>
             <RequestBooking handleClick= { () => initialButtonClick() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut} />
           </div>
         <div>
           <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)} availability= {siteData.availability[0]} checkIn= {checkIn} checkOut= {checkOut} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
         </div>
-        <div>
-          <Totals/>
-        </div>
+
       </Container>
     );
   } else {

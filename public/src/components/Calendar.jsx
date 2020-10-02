@@ -33,19 +33,33 @@ const Day = styled.div`
   justify-content: center;
   cursor: pointer;
   ${props =>
-    props.isToday &&
-    css`
-      border: 1px solid #eee;
-    `}
-  ${props =>
     props.isSelected &&
     css`
-      background-color: #eee;
+      background-color: #40d9ac;
+      color: #fff;
+      `}
+    ${props =>
+    props.isCheckIn &&
+    css`
+      background-color: #40d9ac;
+      color: #fff;
     `}
+    ${props =>
+      props.isCheckOut &&
+      css`
+        background-color: #40d9ac;
+        color: #fff;
+      `}
+    ${props =>
+      props.isNotAvailable &&
+      css`
+        background-color: lightgrey;
+        color: grey;
+      `}
   `;
 
-  export function Calendar({showCalendar, handleClick}) {
-    const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
+    const DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_OF_THE_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -56,49 +70,29 @@ const Day = styled.div`
     const [month, setMonth] = useState(date.getMonth());
     const [year, setYear] = useState(date.getFullYear());
     const [startDay, setStartDay] = useState(getFirstDayOfMonth(date));
-    const [checkIn, setCheckIn] = useState(null);
-    const [checkOut, setCheckOut] = useState(null);
-    const [selectionCount, setSelectCount] = useState(0);
+    const [dateSend, setDateSend] = useState(null);
+    //const [openDay, setOpenDay] = useState(null);
 
     useEffect(() => {
       setDay(date.getDate());
       setMonth(date.getMonth());
       setYear(date.getFullYear());
       setStartDay(getFirstDayOfMonth(date));
-      setCheckIn(grabCheckIn(date, checkIn, selectionCount));
-      setCheckOut(grabCheckOut(date, checkOut, selectionCount));
+      setDateSend(grabDate(date, checkInSelect, checkOutSelect))
     }, [date]);
 
 
-
-    function grabCheckIn(date, checkIn, selectionCount) {
-      debugger;
-      if (selectionCount === 1){
+    function grabDate(date, checkInSelect, checkOutSelect) {
+      if (checkInSelect || checkOutSelect){
         handleClick(date);
         return date;
-      } else {
-        return checkIn;
       }
     }
-
-    function grabCheckOut(date, checkOut, selectionCount) {
-      debugger;
-      if (selectionCount === 2){
-        setSelectCount(0);
-        handleClick(date);
-        return date;
-      } else {
-        return checkOut;
-      }
-    }
-
-    //console.log(checkIn, "<----checkin", checkOut, "<---- checkout");
 
     function getFirstDayOfMonth(date) {
-      console.log("selected date and month", date)
-      // console.log("first day of the month", new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ))
-      return new Date(`${date.getFullYear()}-${date.getMonth() + 1}-1` ).getDay();
+      return new Date(date.getFullYear(), date.getMonth(), 1).getDay() + 1;
     }
+
     //onClick function which saves date value and passes it to Appf
     if (!showCalendar) {
       return null;
@@ -122,15 +116,36 @@ const Day = styled.div`
             .fill(null)
             .map((_, index) => {
               const d = index - (startDay - 2);
-              console.log(new Date(year, month, d), new Date("2020-10-05T00:00:00.000Z"))
+              const evalDay = new Date(year, month, d).toString().split(' ').slice(0, 4).join(' ');
+              const available = availability[evalDay];
+              let nextDay = checkIn ? new Date(checkIn.toString()).getDate() + 1 : null;
+              console.log("open a day", nextDay)
               return (
                 <Day
-                  key={index}
+                  key= {index}
                   isToday={d === today.getDate()}
                   isSelected={d === day}
+                  isCheckIn={checkIn ? checkIn === evalDay : false}
+                  isCheckOut={checkOut ? checkOut === evalDay : false}
+                  isNotAvailable= {!available && d !== nextDay}
                   onClick={() => {
-                      setDate(new Date(year, month, d));
-                      setSelectCount(selectionCount + 1);
+                      if (available || nextDay) {
+                        if (checkIn && !checkOut) {
+                          let comparisonDate = new Date(checkIn.toString());
+                          let prospectiveDate = new Date(year, month, d);
+                          while (comparisonDate < prospectiveDate) {
+                            let date = comparisonDate.toString().split(' ').slice(0, 4).join(' ')
+                            //console.log(`${date} is available ${availability[date]}`)
+                            if (!availability[comparisonDate.toString().split(' ').slice(0, 4).join(' ')]) {
+                              debugger;
+                              return;
+                            }
+                            comparisonDate.setDate(comparisonDate.getDate() + 1);
+                            console.log("DAYS to compare", comparisonDate)
+                          }
+                        }
+                        setDate(new Date(year, month, d));
+                      }
                     }
                   }
                 >
@@ -143,5 +158,3 @@ const Day = styled.div`
       );
     }
   }
-
-

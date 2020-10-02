@@ -37,5 +37,4 @@ const RequestBooking = ({handleClick, showCalendar, checkIn, checkOut}) => {
     );
 }
 
-
 export default RequestBooking;

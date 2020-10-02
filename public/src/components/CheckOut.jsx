@@ -3,16 +3,16 @@ import React from 'react';
 const CheckOut = ({checkOut, handleClick, showCalendar}) => {
   if (!checkOut) {
     return (
-      <div onClick= { showCalendar ? () => {} : () =>  handleClick() }>
+      <div onClick= { () => handleClick() }>
         <div className="label">Check out</div>
         <span>Select date</span>
       </div>
     )
   }
   return (
-    <div onClick= { showCalendar ? () => {} : () =>  handleClick() }>
+    <div onClick= { () => handleClick() }>
         <div className="label">Check out</div>
-      <div>{checkOut}</div>
+      <div>{checkOut.split(' ').slice(1,3).join(' ')}</div>
     </div>
     )
   }

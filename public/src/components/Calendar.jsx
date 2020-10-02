@@ -43,19 +43,6 @@ const Day = styled.div`
       css`
           background-color: lightgrey;
           color: grey;
-          &:before {
-            content: "";
-            border-bottom: 1px solid #333333;
-            position: absolute;
-            left: 15px;
-            top: 6px;
-            width: 25px;
-            height: 16px;
-            -moz-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-          }
       `}
   `;
 

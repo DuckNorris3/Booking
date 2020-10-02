@@ -41,15 +41,20 @@ function App() {
   const[siteData, setSiteData] = useState(null);
   const[checkIn, setCheckIn] = useState(null);
   const[checkOut, setCheckOut] = useState(null);
+  const[checkInSelect, setCheckInSelect] = useState(false);
+  const[checkOutSelect, setCheckOutSelect] = useState(false);
   const[showCalendar, setShowCalendar] = useState(false);
 
   function updateCheckInOut(date, checkIn, checkOut) {
-    debugger;
-    const dateString = date.toString().split(' ').slice(1, 3).join(' ');
-    if(!checkIn) {
+    const dateString = date.toString().split(' ').slice(0, 4).join(' ');
+    if(!checkIn || checkInSelect || date < new Date(checkIn.toString())) {
       setCheckIn(dateString);
-    } else if (checkIn && !checkOut) {
+      setCheckOut(null);
+      setCheckOutSelect(true);
+      setCheckInSelect(false);
+    } else if (checkIn) {
       setCheckOut(dateString);
+      setCheckOutSelect(false);
       showTotals();
     }
   }
@@ -57,13 +62,39 @@ function App() {
   function showTotals() {
     //close calendar
     //show button
-    toggleCalendar();
+    setShowCalendar(false);
     //update price to average per night
     //if savings, show savings
     //show subtotal
   }
-  function toggleCalendar() {
-    setShowCalendar(!showCalendar)
+
+  function initialButtonClick() {
+    setShowCalendar(true)
+    setCheckInSelect(true)
+  }
+
+  function selectCheckIn() {
+    if(!showCalendar) {
+      setShowCalendar(true);
+    }
+    if (!checkInSelect) {
+      setCheckInSelect(true);
+      setCheckOutSelect(false);
+    }
+  }
+  console.log("selected checkin", checkInSelect)
+  console.log("selected checkout", checkOutSelect)
+
+  function selectCheckOut() {
+    if(!showCalendar) {
+      setShowCalendar(true);
+    }
+    if (!checkOutSelect && checkIn) {
+      setCheckOutSelect(true);
+      setCheckInSelect(false);
+    } else {
+      setCheckInSelect(true);
+    }
   }
 
   useEffect(() => {
@@ -78,7 +109,7 @@ function App() {
     }, []);
 
   if (siteData) {
-    console.log(siteData.availability)
+    console.log(siteData.availability[0])
     return (
       <Container>
         <div className="banner">
@@ -89,10 +120,10 @@ function App() {
           <div className="well-content">
             <FlexRow>
               <Col>
-                <CheckIn checkIn= {checkIn} handleClick= { () => toggleCalendar() } showCalendar= {showCalendar}/>
+                <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </Col>
               <Col>
-                <CheckOut checkOut= {checkOut} handleClick= { () => toggleCalendar() } showCalendar= {showCalendar}/>
+                <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
               </Col>
               <Col>
                 <Guests maxGuests= {siteData.maxGuests}/>
@@ -100,10 +131,10 @@ function App() {
             </FlexRow>
           </div>
           <div className="well-content">
-            <RequestBooking handleClick= { () => toggleCalendar() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut}/>
+            <RequestBooking handleClick= { () => initialButtonClick() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut} />
           </div>
         <div>
-          <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)}/>
+          <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)} availability= {siteData.availability[0]} checkIn= {checkIn} checkOut= {checkOut} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
         </div>
         <div>
           <Totals/>

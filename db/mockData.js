@@ -2,12 +2,14 @@ const faker = require('faker');
 const fs = require('fs');
 
 const makeDates = function(start, end) {
-  let arr = [];
+  let obj = {};
 
   for (let dt = start; dt < end; dt.setDate(dt.getDate() + 1)) {
-      arr.push({date: new Date(dt), available: faker.random.boolean()});
+      let date = new Date(dt).toString().split(' ').slice(0,4).join(' ');
+      let available = faker.random.boolean();
+      obj[date] = available;
     }
-  return arr;
+  return obj;
 };
 
 const generateSites = function() {

@@ -10,7 +10,16 @@ line-height: 0.9;
 margin: 2px 0 0;
 min-height: 2.6rem;`
 
-const Price = ({price}) => {
+const Price = ({price, nights, totals}) => {
+  if(totals) {
+    let avgPrice = totals/nights
+    return(
+      <div>
+        <Money>${Math.floor(avgPrice)}</Money>
+        <span>average per night</span>
+      </div>
+    )
+  }
   return(
     <div>
       <Money>${price}</Money>

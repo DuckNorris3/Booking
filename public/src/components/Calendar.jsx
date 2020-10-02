@@ -32,29 +32,17 @@ const Day = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  ${props =>
-    props.isSelected &&
-    css`
-      background-color: #40d9ac;
-      color: #fff;
-      `}
     ${props =>
-    props.isCheckIn &&
+    props.isSelected &&
     css`
       background-color: #40d9ac;
       color: #fff;
     `}
     ${props =>
-      props.isCheckOut &&
-      css`
-        background-color: #40d9ac;
-        color: #fff;
-      `}
-    ${props =>
       props.isNotAvailable &&
       css`
-        background-color: lightgrey;
-        color: grey;
+          background-color: lightgrey;
+          color: grey;
       `}
   `;
 
@@ -71,6 +59,7 @@ const Day = styled.div`
     const [year, setYear] = useState(date.getFullYear());
     const [startDay, setStartDay] = useState(getFirstDayOfMonth(date));
     const [dateSend, setDateSend] = useState(null);
+    const [selected, setSelected] = useState(null);
     //const [openDay, setOpenDay] = useState(null);
 
     useEffect(() => {
@@ -78,14 +67,16 @@ const Day = styled.div`
       setMonth(date.getMonth());
       setYear(date.getFullYear());
       setStartDay(getFirstDayOfMonth(date));
-      setDateSend(grabDate(date, checkInSelect, checkOutSelect))
     }, [date]);
 
+    useEffect(() => {
+      setDateSend(grabDate(selected, checkInSelect, checkOutSelect))
+    }, [selected]);
 
-    function grabDate(date, checkInSelect, checkOutSelect) {
+    function grabDate(selected, checkInSelect, checkOutSelect) {
       if (checkInSelect || checkOutSelect){
-        handleClick(date);
-        return date;
+        handleClick(selected);
+        return selected;
       }
     }
 
@@ -100,11 +91,11 @@ const Day = styled.div`
       return (
         <Frame>
           <Header>
-            <Button onClick={() => setDate(new Date(year, month - 1, day))}>Prev</Button>
+            <Button onClick={() => setDate(new Date(year, month - 1, 1))}>&lt;</Button>
             <div>
               {MONTHS[month]} {year}
             </div>
-            <Button onClick={() => setDate(new Date(year, month + 1, day))}>Next</Button>
+            <Button onClick={() => setDate(new Date(year, month + 1, 1))}>&gt;</Button>
           </Header>
           <Body>
             {DAYS_OF_THE_WEEK.map((d, index) => (
@@ -119,14 +110,11 @@ const Day = styled.div`
               const evalDay = new Date(year, month, d).toString().split(' ').slice(0, 4).join(' ');
               const available = availability[evalDay];
               let nextDay = checkIn ? new Date(checkIn.toString()).getDate() + 1 : null;
-              console.log("open a day", nextDay)
+
               return (
                 <Day
                   key= {index}
-                  isToday={d === today.getDate()}
-                  isSelected={d === day}
-                  isCheckIn={checkIn ? checkIn === evalDay : false}
-                  isCheckOut={checkOut ? checkOut === evalDay : false}
+                  isSelected={d === day || checkIn ? checkIn === evalDay : false || checkOut ? checkOut === evalDay : false}
                   isNotAvailable= {!available && d !== nextDay}
                   onClick={() => {
                       if (available || nextDay) {
@@ -135,16 +123,15 @@ const Day = styled.div`
                           let prospectiveDate = new Date(year, month, d);
                           while (comparisonDate < prospectiveDate) {
                             let date = comparisonDate.toString().split(' ').slice(0, 4).join(' ')
-                            //console.log(`${date} is available ${availability[date]}`)
                             if (!availability[comparisonDate.toString().split(' ').slice(0, 4).join(' ')]) {
                               debugger;
+                              //something needs to happen here to handle this situation
                               return;
                             }
                             comparisonDate.setDate(comparisonDate.getDate() + 1);
-                            console.log("DAYS to compare", comparisonDate)
                           }
                         }
-                        setDate(new Date(year, month, d));
+                        setSelected(new Date(year, month, d));
                       }
                     }
                   }

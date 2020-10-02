@@ -1,13 +1,19 @@
 import React from 'react';
 //Totals is not visible at start
 
-const Totals = ({discount}) => {
-  return (
-    <div>
-    <div>Weeknight Savings  $total saved</div>
-    <div>Subtotal                 $total</div>
-    </div>
-  )
+const Totals = ({showCalendar, checkOut, totals, discount}) => {
+
+  if(!showCalendar && checkOut) {
+    return (
+      <div>
+      <div>Weeknight Savings  ${discount} saved</div>
+      <div>Subtotal                 ${totals}</div>
+      </div>
+    )
+  } else {
+    return null;
+  }
+
 }
 
 export default Totals;

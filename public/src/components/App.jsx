@@ -24,6 +24,7 @@ box-sizing: border-box;
 font-weight: 400;
 `;
 const FlexRow = styled.div`
+  background-color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -31,8 +32,14 @@ const FlexRow = styled.div`
   margin-left: -10px;
   margin-right: -10px;
 `;
+const SelectDateCol = styled.div`
+  padding: 10px;
+  border-right: 1px solid #ebebeb;
+  &:hover {
+    background-color: lightgrey;
+  }
+`;
 const Col = styled.div`
-  background-color: white;
   padding: 10px;
   border-right: 1px solid #ebebeb;
 `;
@@ -170,12 +177,12 @@ function App() {
         </div>
           <div className="well-content">
             <FlexRow>
-              <Col>
+              <SelectDateCol>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
-              </Col>
-              <Col>
+              </SelectDateCol>
+              <SelectDateCol>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
-              </Col>
+              </SelectDateCol>
               <Col>
                 <Guests maxGuests= {siteData.maxGuests}/>
               </Col>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import {Arrow, Body,Day, Frame, Header, SmallText} from '../styling/styledComponents.js';
+import {Arrow, Body, Day, Frame, Header, SmallText} from '../styling/styledComponents.js';
 import Tooltip from "react-simple-tooltip";
 
   export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
@@ -64,8 +64,8 @@ import Tooltip from "react-simple-tooltip";
         <Body>
           {DAYS_OF_THE_WEEK.map((d, index) => (
             <Day
-            key={index}
-            initial={true}
+              key={index}
+              initial={true}
             >
               <strong>{d}</strong>
             </Day>
@@ -115,7 +115,7 @@ import Tooltip from "react-simple-tooltip";
                     transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
                     `}
                   >
-                    <SmallText>{d}</SmallText>
+                    <SmallText>{d <= 0 ? DAYS[month - 1] + d : d > DAYS[month] ? d - (DAYS[month] - 1) : d}</SmallText>
                   </Tooltip>
                 </Day>
               );
@@ -127,7 +127,7 @@ import Tooltip from "react-simple-tooltip";
                   isAvailable= {available || nextDay}
                   onClick={ () => dateClick() }
                 >
-                  <SmallText>{d}</SmallText>
+                  <SmallText>{d <= 0 ? DAYS[month - 1] + d : d > DAYS[month] ? d - (DAYS[month] - 1) : d}</SmallText>
                 </Day>
               );
             } else {
@@ -137,11 +137,11 @@ import Tooltip from "react-simple-tooltip";
                   isNotAvailable= {!available && d !== nextDay}
                   onClick={ () => dateClick() }
                 >
-                  <SmallText>{d > 0 ? d : DAYS[month - 1] + d}</SmallText>
+                  <SmallText>{d <= 0 ? DAYS[month - 1] + d : d > DAYS[month] ? d - (DAYS[month] - 1) : d} </SmallText>
                 </Day>
               );
             }
-          })};
+          })}
         </Body>
       </Frame>
     );

@@ -13,13 +13,15 @@ const Body = styled.div`
 `;
 
 const Day = styled.div`
-  width: 14.28%;
+  width: 13.97%;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #333333;
+  border-top: .1px solid #ebebeb;
+  border-right: .1px solid #ebebeb;
   ${props =>
     props.initial &&
     css `
@@ -27,6 +29,7 @@ const Day = styled.div`
       font-size: 8px;
       cursor: none;
       border: none;
+      width: 14.25%;
   `}
   ${props =>
     props.isAvailable &&
@@ -208,9 +211,13 @@ const Prices = styled.span`
     padding-top: 5px;
   }
 `;
+const Select = styled.div`
+  cursor: pointer;
+`
 
 const SmallText = styled.span`
-  font-size: 10px
+  font-size: 10px;
+  cursor: pointer;
 `;
 
 const Value = styled.span`
@@ -261,6 +268,7 @@ export {
   Money,
   PlusMinus,
   Prices,
+  Select,
   SmallText,
   Value,
   Well,

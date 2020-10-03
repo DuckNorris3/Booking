@@ -14,7 +14,7 @@ const CheckIn = ({checkIn, handleClick, showCalendar, checkInSelect}) => {
   return (
   <div onClick= { () => handleClick() }>
     <div className="label">Check in</div>
-    <div>{checkIn.split(' ').slice(1,3).join(' ')}</div>
+    <span>{checkIn.split(' ').slice(1,3).join(' ')}</span>
   </div>
   )
 }

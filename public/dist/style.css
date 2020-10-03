@@ -5,25 +5,12 @@ div {
 .checkDates {
   cursor: pointer;
 }
-.widget {
-  position: relative;
-  width: 319px;
-  font-family: "Calibre", Helvetica, Arial, sans-serif;
-  /* look into what these are doing: */
-  z-index: 99;
-  font-size: 16px;
-  line-height: 1.42;
-  color: #333333;
-  white-space: nowrap;
-  /* box-sizing: border-box;
-  font-weight: 400; */
-}
 
 .banner {
   background-color: #fff;
   color: #757575;
   border: 1px solid #ebebeb;
-  min-height: 74px;
+  min-height: 30px;
   padding: 13px 10px;
 }
 
@@ -34,11 +21,12 @@ div {
 }
 
 .label {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
 }
 span {
-  font-size: 16px
+  font-size: 10px
 }
 
 .well {
@@ -50,21 +38,7 @@ span {
 .well-content {
   background-color: white;
   border: 1px solid #ebebeb;
-  padding: 10px;
+  padding: 0;
 }
 
-.row {
-  margin-left: -10px;
-  margin-right: -10px;
-}
-.col {
-  color: #333333;
-  float: left;
-  position: relative;
-  min-height: 1px;
-  padding: 10px;
-  box-sizing: border-box;
-  width: 36%;
-  border-right: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
-}
+

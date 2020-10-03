@@ -12,7 +12,7 @@ const CheckOut = ({checkOut, handleClick, showCalendar}) => {
   return (
     <div onClick= { () => handleClick() }>
         <div className="label">Check out</div>
-      <div>{checkOut.split(' ').slice(1,3).join(' ')}</div>
+      <span>{checkOut.split(' ').slice(1,3).join(' ')}</span>
     </div>
     )
   }

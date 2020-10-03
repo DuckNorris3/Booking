@@ -5,10 +5,11 @@ const Money = styled.div`
 align-items: center;
 display: flex;
 color: #333333;
-font-size: 26px;
+font-size: 14px;
+font-weight: 700;
 line-height: 0.9;
 margin: 2px 0 0;
-min-height: 2.6rem;`
+min-height: .6rem;`
 
 const Price = ({price, nights, totals}) => {
   if(totals) {

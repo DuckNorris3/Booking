@@ -8,33 +8,48 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import styled from 'styled-components';
-
+import styled, { css, keyframes} from 'styled-components';
 
 const Container = styled.div`
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: left;
-position: relative;
-width: 319px;
-font-family: "Calibre", Helvetica, Arial, sans-serif;
-z-index: 99;
-box-sizing: border-box;
-font-weight: 400;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  position: relative;
+  width: 260px;
+  font-family: Calibre, Helvetica, Arial, sans-serif;;
+  z-index: 99;
+  box-sizing: border-box;
 `;
 const FlexRow = styled.div`
   background-color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  margin-left: -10px;
-  margin-right: -10px;
+  align-content: space-evenly;
+  margin-left: 0;
+  margin-right: 0;
 `;
-
-
-
+const Well = styled.div`
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid #ebebeb;
+  padding: 10px;
+  ${props =>
+    props.render &&
+    css`
+      visibility: visible
+      opacity: 1;
+      transition: all .6s ease-out;
+    `}
+    ${props =>
+    props.hide &&
+    css`
+      visibility: hidden;
+      opacity: 0;
+      transition: all .6s ;
+    `}
+`;
 function App() {
   const[siteData, setSiteData] = useState(null);
   const[checkIn, setCheckIn] = useState(null);
@@ -45,22 +60,32 @@ function App() {
   const[nights, setNights] = useState(0);
   const[discount, setDiscount] = useState(0)
   const[totals, setTotals] = useState(0);
+
   const Col = styled.div`
-  padding: 10px;
-  border-right: 1px solid #ebebeb;
+  padding: 10px 10px 10px 18px;
+  transition: background-color .5s ease 0s;
+  transition-property: background-color;
+  transition-duration: .5s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
   &.checkIn {
     &:hover {
-      background-color: ${checkInSelect ? 'grey' : 'lightgrey'}
+      background-color: ${checkInSelect ? '#ebebeb' : '#f4f4f4'}
     }
-    background-color: ${checkInSelect ? 'lightgrey' : 'white'}
+    padding: 10px 32px 10px 10px;
+    border-right: 1px solid #ebebeb;
+    background-color: ${checkInSelect ? '#ebebeb' : 'white'}
   }
   &.checkOut {
     &:hover {
-      background-color: ${checkOutSelect ? 'grey' : 'lightgrey'}
+      background-color: ${checkOutSelect ? 'ebebeb' : '#f4f4f4'}
     }
-    background-color: ${checkOutSelect ? 'lightgrey' : 'white'}
+    padding: 10px 32px 10px 10px;
+    border-right: 1px solid #ebebeb;
+    background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
   }
 `;
+
   useEffect(() => {
     axios.get(`/5`)
       .then((result) => {
@@ -170,11 +195,10 @@ function App() {
     }
   }
 
-
-
   if (siteData) {
     console.log(siteData)
     return (
+      <div>
       <Container>
         <div className="banner">
           <div className="price-wrapper">
@@ -183,7 +207,7 @@ function App() {
         </div>
           <div className="well-content">
             <FlexRow>
-              <Col className="checkIn">
+              <Col className="checkIn" >
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </Col>
               <Col className= "checkOut">
@@ -194,23 +218,25 @@ function App() {
               </Col>
             </FlexRow>
           </div>
-          <div className="well-content">
             <div>
               <Totals showCalendar= {showCalendar} checkOut= {checkOut} totals= {totals} discount= {discount} nights= {nights}/>
             </div>
+          <div>
             <RequestBooking handleClick= { () => initialButtonClick() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut} />
           </div>
         <div>
           <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)} availability= {siteData.availability[0]} checkIn= {checkIn} checkOut= {checkOut} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
         </div>
-
       </Container>
+    </div>
     );
   } else {
     return (
+    <div>
       <Container>
         Loading site...
       </Container>
+    </div>
     )
   }
 }

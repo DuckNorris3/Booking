@@ -1,94 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import {Arrow, Body,Day, Frame, Header, SmallText} from '../styling/styledComponents.js';
 import Tooltip from "react-simple-tooltip"
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
-const Frame = styled.div`
-  border: 1px solid #ebebeb;
-  border-top: none;
-  box-shadow: 2px 2px 2px #eee;
-${props =>
-  props.render &&
-  css`
-    visibility: visible
-    opacity: 1;
-    height: auto;
-    transition: all .6s ease-out;
-  `}
-  ${props =>
-  props.hide &&
-  css`
-    visibility: hidden;
-    opacity: 0;
-    height: 0;
-    transition: all .6s ;
-  `}
-`;
-
-const Header = styled.div`
-  font-size: 10px;
-  font-weight: bold;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #ebebeb;
-`;
-
-const Button = styled.div`
-  cursor: pointer
-  `;
-
-const Body = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Day = styled.div`
-  width: 14.28%;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #333333;
-  ${props =>
-    props.initial &&
-    css `
-      height: 20px;
-      font-size: 8px;
-      cursor: none;
-      border: none;
-  `}
-  ${props =>
-    props.isAvailable &&
-    css`
-      &:hover {
-        background-color: #40d9ac;
-        color: #fff;
-      }
-    `}
-  ${props =>
-    props.isSelected &&
-    css`
-      background-color: #40d9ac;
-      color: #fff;
-    `}
-  ${props =>
-    props.isNotAvailable &&
-    css`
-        background-color: #ebebeb;
-    `}
-  `;
 
   export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
     const DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -135,16 +49,16 @@ const Day = styled.div`
         hide= {!showCalendar}
       >
         <Header>
-          <Button
+          <Arrow
           onClick={() => setDate(new Date(year, month - 1, 1))}>
-            &lt;</Button>
+            &lt;</Arrow>
           <div>
             {MONTHS[month]} {year}
           </div>
-          <Button
+          <Arrow
           onClick={() => setDate(new Date(year, month + 1, 1))}>
             &gt;
-          </Button>
+          </Arrow>
         </Header>
         <Body>
           {DAYS_OF_THE_WEEK.map((d, index) => (
@@ -198,7 +112,7 @@ const Day = styled.div`
                     font-size: 8px;
                     `}
                   >
-                    <span>{d}</span>
+                    <SmallText>{d}</SmallText>
                   </Tooltip>
                 </Day>
               );
@@ -210,7 +124,7 @@ const Day = styled.div`
                   isAvailable= {available || nextDay}
                   onClick={ () => dateClick() }
                 >
-                  <span>{d}</span>
+                  <SmallText>{d}</SmallText>
                 </Day>
               );
             } else {
@@ -220,7 +134,7 @@ const Day = styled.div`
                   isNotAvailable= {!available && d !== nextDay}
                   onClick={ () => dateClick() }
                 >
-                  <span>{d > 0 ? d : DAYS[month - 1] + d}</span>
+                  <SmallText>{d > 0 ? d : DAYS[month - 1] + d}</SmallText>
                 </Day>
               );
             }

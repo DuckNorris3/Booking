@@ -8,48 +8,9 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import styled, { css, keyframes} from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { Banner, Container, DatesAndGuests, FlexRow, Wrapper } from '../styling/styledComponents';
 
-const Container = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  position: relative;
-  width: 260px;
-  font-family: Calibre, Helvetica, Arial, sans-serif;;
-  z-index: 99;
-  box-sizing: border-box;
-`;
-const FlexRow = styled.div`
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: space-evenly;
-  margin-left: 0;
-  margin-right: 0;
-`;
-const Well = styled.div`
-  box-sizing: border-box;
-  background-color: white;
-  border: 1px solid #ebebeb;
-  padding: 10px;
-  ${props =>
-    props.render &&
-    css`
-      visibility: visible
-      opacity: 1;
-      transition: all .6s ease-out;
-    `}
-    ${props =>
-    props.hide &&
-    css`
-      visibility: hidden;
-      opacity: 0;
-      transition: all .6s ;
-    `}
-`;
 function App() {
   const[siteData, setSiteData] = useState(null);
   const[checkIn, setCheckIn] = useState(null);
@@ -200,12 +161,12 @@ function App() {
     return (
       <div>
       <Container>
-        <div className="banner">
-          <div className="price-wrapper">
+        <Banner>
+          <Wrapper>
             <Price price= {siteData.price} totals= {totals} nights= {nights}/>
-          </div>
-        </div>
-          <div className="well-content">
+          </Wrapper>
+        </Banner>
+          <DatesAndGuests>
             <FlexRow>
               <Col className="checkIn" >
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
@@ -217,7 +178,7 @@ function App() {
                 <Guests maxGuests= {siteData.maxGuests}/>
               </Col>
             </FlexRow>
-          </div>
+          </DatesAndGuests>
             <div>
               <Totals showCalendar= {showCalendar} checkOut= {checkOut} totals= {totals} discount= {discount} nights= {nights}/>
             </div>

@@ -89,6 +89,7 @@ const Banner = styled.div`
   background-color: #fff;
   color: #757575;
   border: 1px solid #ebebeb;
+  border-bottom: none;
   min-height: 30px;
   padding: 13px 10px;
 `
@@ -228,6 +229,7 @@ const Well = styled.div`
   box-sizing: border-box;
   background-color: white;
   border: 1px solid #ebebeb;
+  border-top: none;
   padding: 10px;
   ${props =>
     props.render &&

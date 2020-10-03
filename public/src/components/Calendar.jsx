@@ -108,7 +108,7 @@ import Tooltip from "react-simple-tooltip";
                     content="Weeknight Savings!"
                     arrow= {5}
                     padding= {2}
-                    fadeDuration= {100}
+                    fadeDuration= {50}
                     customCss={css`
                     white-space: nowrap;
                     font-size: 8px;

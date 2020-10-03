@@ -29,7 +29,7 @@ function App() {
   const[totals, setTotals] = useState(0);
 
   useEffect( () => {
-    axios.get(`/5`)
+    axios.get(`/50`)
       .then((result) => {
         console.log("received data");
         setSiteData(result.data[0])

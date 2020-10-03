@@ -6,12 +6,14 @@ const RequestBooking = ({handleClick, showCalendar, checkIn, checkOut}) => {
   if(!showCalendar) {
     return (
       <Well render= {!showCalendar} hide= {showCalendar}>
-        <Button onClick= {checkIn && checkOut ? () => {} : () =>  handleClick()}>Request Booking</Button>
+        <Button onClick= {checkIn && checkOut ? () => {} : () =>  handleClick()}>
+          Request Booking
+        </Button>
       </Well>
       );
   } else {
     return null;
   }
-}
+};
 
 export default RequestBooking;

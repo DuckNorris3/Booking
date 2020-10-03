@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import {Arrow, Body,Day, Frame, Header, SmallText} from '../styling/styledComponents.js';
-import Tooltip from "react-simple-tooltip"
+import Tooltip from "react-simple-tooltip";
 
   export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
     const DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -36,11 +36,11 @@ import Tooltip from "react-simple-tooltip"
         handleClick(selected);
         return selected;
       }
-    }
+    };
 
     function getFirstDayOfMonth(date) {
       return new Date(date.getFullYear(), date.getMonth(), 1).getDay() + 1;
-    }
+    };
 
     //onClick function which saves date value and passes it to Appf
     return (
@@ -51,7 +51,8 @@ import Tooltip from "react-simple-tooltip"
         <Header>
           <Arrow
           onClick={() => setDate(new Date(year, month - 1, 1))}>
-            &lt;</Arrow>
+            &lt;
+          </Arrow>
           <div>
             {MONTHS[month]} {year}
           </div>
@@ -79,7 +80,7 @@ import Tooltip from "react-simple-tooltip"
             const nextDay = checkIn ? new Date(checkIn.toString()).getDate() + 1 : null;
             const available = availability[stringDay];
             function dateClick() {
-              if(available || nextDay) {
+              if (available || nextDay) {
                 if (checkIn && !checkOut) {
                   let comparisonDate = new Date(checkIn.toString());
                   let prospectiveDate = new Date(year, month, d);
@@ -94,7 +95,7 @@ import Tooltip from "react-simple-tooltip"
                 }
                 setSelected(new Date(year, month, d));
               }
-            }
+            };
             if (weekDay && available) {
               return (
                 <Day
@@ -107,9 +108,11 @@ import Tooltip from "react-simple-tooltip"
                     content="Weeknight Savings!"
                     arrow= {5}
                     padding= {2}
+                    fadeDuration= {100}
                     customCss={css`
                     white-space: nowrap;
                     font-size: 8px;
+                    transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
                     `}
                   >
                     <SmallText>{d}</SmallText>
@@ -138,9 +141,9 @@ import Tooltip from "react-simple-tooltip"
                 </Day>
               );
             }
-          })}
+          })};
         </Body>
       </Frame>
     );
-  }
+  };
 

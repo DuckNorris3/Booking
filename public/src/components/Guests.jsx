@@ -10,7 +10,10 @@ function  Guests({maxGuests}) {
         Guests
       </Label>
       <a>
-        <PlusMinus limit= {count <= 1} onClick={ () => count > 1 ? setCount(count - 1) : {} }>
+        <PlusMinus
+        limit= {count <= 1}
+        onClick={ () => count > 1 ? setCount(count - 1) : {} }
+        >
           -
         </PlusMinus>
       </a>
@@ -18,12 +21,15 @@ function  Guests({maxGuests}) {
         {count}
       </Value>
       <a>
-        <PlusMinus limit= { count >= maxGuests } onClick={ () => count < maxGuests ? setCount(count + 1) : {} }>
+        <PlusMinus
+        limit= { count >= maxGuests }
+        onClick={ () => count < maxGuests ? setCount(count + 1) : {} }
+        >
           +
         </PlusMinus>
       </a>
     </div>
-  )
-}
+  );
+};
 
 export default Guests;

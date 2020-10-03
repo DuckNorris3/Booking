@@ -15,6 +15,6 @@ describe('test front end', () => {
   test('CheckIn component exists in App', () => {
     let wrapper = mount(<App />);
     expect(wrapper.find('CheckIn')).toBeTruthy();
-  })
-})
+  });
+});
 

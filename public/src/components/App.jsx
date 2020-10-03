@@ -9,7 +9,12 @@ import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
 import styled, { css, keyframes } from 'styled-components';
-import { Banner, Container, DatesAndGuests, FlexRow, Wrapper } from '../styling/styledComponents';
+import { Banner,
+  Container,
+  DatesAndGuests,
+  FlexRow,
+  Wrapper
+} from '../styling/styledComponents';
 
 function App() {
   const[siteData, setSiteData] = useState(null);
@@ -19,7 +24,7 @@ function App() {
   const[checkOutSelect, setCheckOutSelect] = useState(false);
   const[showCalendar, setShowCalendar] = useState(false);
   const[nights, setNights] = useState(0);
-  const[discount, setDiscount] = useState(0)
+  const[discount, setDiscount] = useState(0);
   const[totals, setTotals] = useState(0);
 
   const Col = styled.div`
@@ -47,10 +52,10 @@ function App() {
   }
 `;
 
-  useEffect(() => {
+  useEffect( () => {
     axios.get(`/5`)
       .then((result) => {
-        console.log("received data")
+        console.log("received data");
         setSiteData(result.data[0])
       })
       .catch(err => {
@@ -71,6 +76,7 @@ function App() {
     }, [discount]);
 
 //HANDLING CHECKIN AND CHECKOUT
+
   function updateCheckInOut(date, checkIn, checkOut) {
     const dateString = date.toString().split(' ').slice(0, 4).join(' ');
     if(!checkIn || checkInSelect || date < new Date(checkIn.toString())) {
@@ -79,11 +85,12 @@ function App() {
       setCheckOutSelect(true);
       setCheckInSelect(false);
     } else if (checkIn) {
-      setCheckOut(dateString)
+      setCheckOut(dateString);
       setCheckOutSelect(false);
       setShowCalendar(false);
     }
-  }
+  };
+
 //SELECTING VIEWS
   function selectCheckIn() {
     if(!showCalendar) {
@@ -93,7 +100,7 @@ function App() {
       setCheckInSelect(true);
       setCheckOutSelect(false);
     }
-  }
+  };
 
   function selectCheckOut() {
     if(!showCalendar) {
@@ -105,12 +112,12 @@ function App() {
     } else {
       setCheckInSelect(true);
     }
-  }
+  };
 
   function initialButtonClick() {
-    setShowCalendar(true)
-    setCheckInSelect(true)
-  }
+    setShowCalendar(true);
+    setCheckInSelect(true);
+  };
 
 //PRICE CALCULATIONS
   function calculateNights() {
@@ -120,15 +127,15 @@ function App() {
       let checkoutDate = new Date(checkOut.toString());
       // while loop over check in date up to check out date
       while (date < checkoutDate) {
-        count ++;
-        date.setDate(date.getDate() + 1)
+        count += 1;
+        date.setDate(date.getDate() + 1);
       }
       return count;
     }
-  }
+  };
 
   function calculateDiscount() {
-    if(nights) {
+    if (nights) {
       if (siteData.weekdayDisc) {
         let amountOff = siteData.price * siteData.weekdayDisc;
         let weeknightCount = 0;
@@ -137,9 +144,9 @@ function App() {
         while (date < checkoutDate) {
           let day = date.getDay();
           if (day !== 0 && day !== 6) {
-            weeknightCount++
+            weeknightCount += 1;
           }
-          date.setDate(date.getDate() + 1)
+          date.setDate(date.getDate() + 1);
         }
         let totalSaved = amountOff * weeknightCount;
         return totalSaved;
@@ -147,7 +154,7 @@ function App() {
         return 0;
       }
     }
-  }
+  };
 
   function calculateTotal() {
     if (nights) {
@@ -157,7 +164,7 @@ function App() {
   }
 
   if (siteData) {
-    console.log(siteData)
+    console.log(siteData);
     return (
       <div>
       <Container>
@@ -198,9 +205,9 @@ function App() {
         Loading site...
       </Container>
     </div>
-    )
+    );
   }
-}
+};
 
 
 export default App;

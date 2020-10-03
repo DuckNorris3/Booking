@@ -10,6 +10,7 @@ import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
 import styled, { css, keyframes } from 'styled-components';
 import { Banner,
+  Col,
   Container,
   DatesAndGuests,
   FlexRow,
@@ -26,31 +27,6 @@ function App() {
   const[nights, setNights] = useState(0);
   const[discount, setDiscount] = useState(0);
   const[totals, setTotals] = useState(0);
-
-  const Col = styled.div`
-  padding: 10px 10px 10px 18px;
-  transition: background-color .5s ease 0s;
-  transition-property: background-color;
-  transition-duration: .5s;
-  transition-timing-function: ease;
-  transition-delay: 0s;
-  &.checkIn {
-    &:hover {
-      background-color: ${checkInSelect ? '#ebebeb' : '#f4f4f4'}
-    }
-    padding: 10px 32px 10px 10px;
-    border-right: 1px solid #ebebeb;
-    background-color: ${checkInSelect ? '#ebebeb' : 'white'}
-  }
-  &.checkOut {
-    &:hover {
-      background-color: ${checkOutSelect ? 'ebebeb' : '#f4f4f4'}
-    }
-    padding: 10px 32px 10px 10px;
-    border-right: 1px solid #ebebeb;
-    background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
-  }
-`;
 
   useEffect( () => {
     axios.get(`/5`)
@@ -175,10 +151,10 @@ function App() {
         </Banner>
           <DatesAndGuests>
             <FlexRow>
-              <Col className="checkIn" >
+              <Col className="checkInOut" isSelected= {checkInSelect}>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </Col>
-              <Col className= "checkOut">
+              <Col className= "checkInOut" isSelected= {checkOutSelect}>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
               </Col>
               <Col>

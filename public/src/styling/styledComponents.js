@@ -114,6 +114,30 @@ const Button = styled.button`
   }
 `;
 
+const Col = styled.div`
+padding: 10px 10px 10px 18px;
+  &.checkInOut {
+    &:hover {
+      background-color: '#f4f4f4';
+    }
+    padding: 10px 32px 10px 10px;
+    border-right: 1px solid #ebebeb;
+    background-color: 'white';
+    transition: background-color .5s ease 0s;
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+  }
+${props =>
+  props.isSelected  &&
+  css`
+    background-color: '#ebebeb';
+    &:hover {
+      background-color: '#ebebeb';
+  `}
+`;
+
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -124,10 +148,6 @@ const Container = styled.div`
   font-family: Calibre, Helvetica, Arial, sans-serif;
   z-index: 99;
   box-sizing: border-box;
-`;
-
-const SmallText = styled.span`
-  font-size: 10px
 `;
 
 const DatesAndGuests = styled.div`
@@ -189,6 +209,10 @@ const Prices = styled.span`
   }
 `;
 
+const SmallText = styled.span`
+  font-size: 10px
+`;
+
 const Value = styled.span`
   font-size: 10px;
   padding: 0 10px;
@@ -226,6 +250,7 @@ export {
   Banner,
   Body,
   Button,
+  Col,
   Container,
   DatesAndGuests,
   Day,

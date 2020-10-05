@@ -5,8 +5,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-//Load static site
+//LOAD STATIC SITE
 app.use(express.static(__dirname + '/../public/dist'));
+
 //BOOKING DATA REQUEST
 app.get('/:id', (req, res) => {
   var site = req.params;
@@ -15,17 +16,18 @@ app.get('/:id', (req, res) => {
       console.log(err);
     }
     res.status(200).send(results);
-  })
-})
+  });
+});
 
 app.get('/api/test', async (req, res) => {
-  res.json({message: 'pass!'})
-})
+  res.json({message: 'pass!'});
+});
+
 let server;
-const start = () => { server = app.listen(PORT, () => {})}
+const start = () => { server = app.listen(PORT, () => {}) };
 const close = server ? server.close : () => {};
 
 module.exports = {
   start,
   close
-}
+};

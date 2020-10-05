@@ -1,22 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Select, SmallText, Label } from '../styling/styledComponents';
 
 const CheckIn = ({checkIn, handleClick, showCalendar, checkInSelect}) => {
   if (!checkIn) {
     return (
-      <div onClick= { () => handleClick() }>
-        <div className="label">Check in</div>
-        <span>Select date</span>
-      </div>
-    )
+      <Select onClick= { () => handleClick() }>
+        <Label>
+          Check in
+        </Label>
+        <SmallText>
+          Select date
+        </SmallText>
+      </Select>
+    );
   }
   return (
-  <div onClick= { () => handleClick() }>
-    <div className="label">Check in</div>
-    <div>{checkIn.split(' ').slice(1,3).join(' ')}</div>
-  </div>
-  )
-}
+  <Select onClick= { () => handleClick() }>
+    <Label>
+      Check in
+    </Label>
+    <SmallText>
+      {checkIn.split(' ').slice(1,3).join(' ')}
+    </SmallText>
+  </Select>
+  );
+};
 
 export default CheckIn;

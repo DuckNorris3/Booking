@@ -8,32 +8,14 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import styled from 'styled-components';
-
-
-const Container = styled.div`
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: left;
-position: relative;
-width: 319px;
-font-family: "Calibre", Helvetica, Arial, sans-serif;
-z-index: 99;
-box-sizing: border-box;
-font-weight: 400;
-`;
-const FlexRow = styled.div`
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin-left: -10px;
-  margin-right: -10px;
-`;
-
-
+import styled, { css, keyframes } from 'styled-components';
+import { Banner,
+  Col,
+  Container,
+  DatesAndGuests,
+  FlexRow,
+  Wrapper
+} from '../styling/styledComponents';
 
 function App() {
   const[siteData, setSiteData] = useState(null);
@@ -43,28 +25,13 @@ function App() {
   const[checkOutSelect, setCheckOutSelect] = useState(false);
   const[showCalendar, setShowCalendar] = useState(false);
   const[nights, setNights] = useState(0);
-  const[discount, setDiscount] = useState(0)
+  const[discount, setDiscount] = useState(0);
   const[totals, setTotals] = useState(0);
-  const Col = styled.div`
-  padding: 10px;
-  border-right: 1px solid #ebebeb;
-  &.checkIn {
-    &:hover {
-      background-color: ${checkInSelect ? 'grey' : 'lightgrey'}
-    }
-    background-color: ${checkInSelect ? 'lightgrey' : 'white'}
-  }
-  &.checkOut {
-    &:hover {
-      background-color: ${checkOutSelect ? 'grey' : 'lightgrey'}
-    }
-    background-color: ${checkOutSelect ? 'lightgrey' : 'white'}
-  }
-`;
-  useEffect(() => {
-    axios.get(`/5`)
+
+  useEffect( () => {
+    axios.get(`/50`)
       .then((result) => {
-        console.log("received data")
+        console.log("received data");
         setSiteData(result.data[0])
       })
       .catch(err => {
@@ -85,6 +52,7 @@ function App() {
     }, [discount]);
 
 //HANDLING CHECKIN AND CHECKOUT
+
   function updateCheckInOut(date, checkIn, checkOut) {
     const dateString = date.toString().split(' ').slice(0, 4).join(' ');
     if(!checkIn || checkInSelect || date < new Date(checkIn.toString())) {
@@ -93,11 +61,12 @@ function App() {
       setCheckOutSelect(true);
       setCheckInSelect(false);
     } else if (checkIn) {
-      setCheckOut(dateString)
+      setCheckOut(dateString);
       setCheckOutSelect(false);
       setShowCalendar(false);
     }
-  }
+  };
+
 //SELECTING VIEWS
   function selectCheckIn() {
     if(!showCalendar) {
@@ -107,7 +76,7 @@ function App() {
       setCheckInSelect(true);
       setCheckOutSelect(false);
     }
-  }
+  };
 
   function selectCheckOut() {
     if(!showCalendar) {
@@ -119,12 +88,12 @@ function App() {
     } else {
       setCheckInSelect(true);
     }
-  }
+  };
 
   function initialButtonClick() {
-    setShowCalendar(true)
-    setCheckInSelect(true)
-  }
+    setShowCalendar(true);
+    setCheckInSelect(true);
+  };
 
 //PRICE CALCULATIONS
   function calculateNights() {
@@ -134,15 +103,15 @@ function App() {
       let checkoutDate = new Date(checkOut.toString());
       // while loop over check in date up to check out date
       while (date < checkoutDate) {
-        count ++;
-        date.setDate(date.getDate() + 1)
+        count += 1;
+        date.setDate(date.getDate() + 1);
       }
       return count;
     }
-  }
+  };
 
   function calculateDiscount() {
-    if(nights) {
+    if (nights) {
       if (siteData.weekdayDisc) {
         let amountOff = siteData.price * siteData.weekdayDisc;
         let weeknightCount = 0;
@@ -151,9 +120,9 @@ function App() {
         while (date < checkoutDate) {
           let day = date.getDay();
           if (day !== 0 && day !== 6) {
-            weeknightCount++
+            weeknightCount += 1;
           }
-          date.setDate(date.getDate() + 1)
+          date.setDate(date.getDate() + 1);
         }
         let totalSaved = amountOff * weeknightCount;
         return totalSaved;
@@ -161,7 +130,7 @@ function App() {
         return 0;
       }
     }
-  }
+  };
 
   function calculateTotal() {
     if (nights) {
@@ -170,50 +139,51 @@ function App() {
     }
   }
 
-
-
   if (siteData) {
-    console.log(siteData)
+    console.log(siteData);
     return (
+      <div>
       <Container>
-        <div className="banner">
-          <div className="price-wrapper">
+        <Banner>
+          <Wrapper>
             <Price price= {siteData.price} totals= {totals} nights= {nights}/>
-          </div>
-        </div>
-          <div className="well-content">
+          </Wrapper>
+        </Banner>
+          <DatesAndGuests>
             <FlexRow>
-              <Col className="checkIn">
+              <Col className="checkInOut" isSelected= {checkInSelect}>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </Col>
-              <Col className= "checkOut">
+              <Col className= "checkInOut" isSelected= {checkOutSelect}>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
               </Col>
               <Col>
                 <Guests maxGuests= {siteData.maxGuests}/>
               </Col>
             </FlexRow>
-          </div>
-          <div className="well-content">
+          </DatesAndGuests>
             <div>
               <Totals showCalendar= {showCalendar} checkOut= {checkOut} totals= {totals} discount= {discount} nights= {nights}/>
             </div>
+          <div>
             <RequestBooking handleClick= { () => initialButtonClick() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut} />
           </div>
         <div>
           <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)} availability= {siteData.availability[0]} checkIn= {checkIn} checkOut= {checkOut} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
         </div>
-
       </Container>
+    </div>
     );
   } else {
     return (
+    <div>
       <Container>
         Loading site...
       </Container>
-    )
+    </div>
+    );
   }
-}
+};
 
 
 export default App;

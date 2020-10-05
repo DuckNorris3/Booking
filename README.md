@@ -16,7 +16,9 @@
 
 ## Usage
 
-> Some usage instructions
+> Seed database: npm run db-seed
+> Start server: npm start
+> Transpile front-end: npm run build
 
 ## Requirements
 

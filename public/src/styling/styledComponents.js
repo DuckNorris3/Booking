@@ -118,28 +118,8 @@ const Button = styled.button`
   }
 `;
 
-const Col = styled.div`
-padding: 10px 10px 10px 18px;
-  &.checkInOut {
-    &:hover {
-      background-color: '#f4f4f4';
-    }
-    padding: 10px 32px 10px 10px;
-    border-right: 1px solid #ebebeb;
-    background-color: 'white';
-    transition: background-color .5s ease 0s;
-    transition-property: background-color;
-    transition-duration: .5s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-  }
-${props =>
-  props.isSelected  &&
-  css`
-    background-color: '#ebebeb';
-    &:hover {
-      background-color: '#ebebeb';
-  `}
+const GuestCol = styled.div`
+  padding: 10px 10px 10px 18px;
 `;
 
 const Container = styled.div`
@@ -259,7 +239,7 @@ export {
   Banner,
   Body,
   Button,
-  Col,
+  GuestCol,
   Container,
   DatesAndGuests,
   Day,

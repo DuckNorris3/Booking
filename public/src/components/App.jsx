@@ -52,7 +52,7 @@ function App() {
 `;
 
   useEffect( () => {
-    axios.get(`/50`)
+    axios.get(`http://127.0.0.1:3002/50`)
       .then((result) => {
         console.log("received data");
         setSiteData(result.data[0])

@@ -8,8 +8,10 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import styled, { css, keyframes } from 'styled-components';
-import { Banner,
+import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import {
+  Banner,
   ColGuests,
   Container,
   DatesAndGuests,
@@ -18,7 +20,10 @@ import { Banner,
 } from '../styling/styledComponents';
 
 function App() {
+  debugger;
   const[siteData, setSiteData] = useState(null);
+  const { siteId } = useParams();
+
   const[checkIn, setCheckIn] = useState(null);
   const[checkOut, setCheckOut] = useState(null);
   const[checkInSelect, setCheckInSelect] = useState(false);
@@ -52,9 +57,9 @@ function App() {
 `;
 
   useEffect( () => {
-    axios.get(`http://127.0.0.1:3002/50`)
+    axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
       .then((result) => {
-        console.log("received data");
+        console.log("Booking received data");
         setSiteData(result.data[0])
       })
       .catch(err => {

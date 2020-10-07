@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { Label, PlusMinus, Value } from '../styling/styledComponents';
+import {
+  Label,
+  PlusMinus,
+  Value
+} from '../styling/styledComponents';
 
 function  Guests({maxGuests}) {
   const [count, setCount] = useState(1);

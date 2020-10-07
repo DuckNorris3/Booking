@@ -17,13 +17,13 @@ afterAll(() => {
 });
 
 test("/4 endpoint data for site 4", async () => {
-  const { data, status } = await api.get('/4');
+  const { data, status } = await api.get('/sites/4');
   expect(status).toBe(200);
   expect(data[0].siteId).toEqual(4);
 });
 
 test("/10 site availability is an array", async () => {
-  const { data, status } = await api.get('/10');
+  const { data, status } = await api.get('/sites/10');
   expect(status).toBe(200);
   expect(Array.isArray(data[0].availability)).toBe(true);
 });

@@ -25,6 +25,10 @@ app.get('/api/test', async (req, res) => {
   res.json({message: 'pass!'});
 });
 
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: __dirname + '/../public/dist'})
+})
+
 let server;
 const start = () => { server = app.listen(PORT, () => {}) };
 const close = server ? server.close : () => {};

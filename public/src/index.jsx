@@ -7,14 +7,15 @@ import {
   Route
 } from "react-router-dom";
 
-
 ReactDOM.render(
+
   <Router>
     <Switch>
-      <Route path="sideId">
+      <Route path="/:siteId">
         <App />
       </Route>
     </Switch>
-  </Router>
-,
-document.getElementById('booking'));
+  </Router>,
+
+  document.getElementById('booking')
+);

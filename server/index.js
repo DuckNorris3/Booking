@@ -21,6 +21,10 @@ app.get('/sites/:id', (req, res) => {
   });
 });
 
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: __dirname + '/../public/dist'})
+})
+
 app.get('/api/test', async (req, res) => {
   res.json({message: 'pass!'});
 });

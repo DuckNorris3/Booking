@@ -20,7 +20,11 @@ import {
 } from '../styling/styledComponents';
 
 function App() {
+
   const[siteData, setSiteData] = useState(null);
+
+  const { siteId } = useParams();
+
   const[checkIn, setCheckIn] = useState(null);
   const[checkOut, setCheckOut] = useState(null);
   const[checkInSelect, setCheckInSelect] = useState(false);
@@ -54,7 +58,7 @@ function App() {
 `;
 
   useEffect( () => {
-    axios.get(`http://127.0.0.1:3002/50`)
+    axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
       .then((result) => {
         console.log("received data");
         setSiteData(result.data[0])
@@ -182,9 +186,9 @@ function App() {
               <DatesCol className= "checkout" isSelected= {checkOutSelect}>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
               </DatesCol>
-              <GuestsCol>
+              <GuestCol>
                 <Guests maxGuests= {siteData.maxGuests}/>
-              </GuestsCol>
+              </GuestCol>
             </FlexRow>
           </DatesAndGuests>
             <div>

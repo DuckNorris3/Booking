@@ -1,5 +1,9 @@
 import React from 'react';
-import { Select, SmallText, Label } from '../styling/styledComponents';
+import {
+  Select,
+  SmallText,
+  Label
+} from '../styling/styledComponents';
 
 const CheckOut = ({checkOut, handleClick, showCalendar}) => {
   if (!checkOut) {

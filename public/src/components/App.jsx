@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   Banner,
-  GuestsCol,
+  GuestCol,
   Container,
   DatesAndGuests,
   FlexRow,

@@ -65,7 +65,6 @@ function App() {
   useEffect( () => {
     axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
       .then((result) => {
-        console.log("received data");
         setSiteData(result.data[0])
       })
       .catch(err => {
@@ -135,13 +134,6 @@ function App() {
     setCheckInSelect(true);
   };
 
-//PRICE CALCULATIONS
-
-
-  //add args to calculate, extract utilities functions
-  //calculateDiscount(nights, )
-
-
   function calculateTotal() {
     if (nights) {
       let subTotal = siteData.price * nights;
@@ -150,7 +142,6 @@ function App() {
   }
 
   if (siteData) {
-    console.log(siteData);
     return (
       <div>
       <Container>

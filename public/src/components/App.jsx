@@ -9,9 +9,14 @@ import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
 import styled, { css, keyframes } from 'styled-components';
+<<<<<<< HEAD
 import {
   Banner,
   GuestCol,
+=======
+import { Banner,
+  ColGuests,
+>>>>>>> 7c8f095ea6929e022bd2f5e114198d71517b0e87
   Container,
   DatesAndGuests,
   FlexRow,
@@ -29,6 +34,7 @@ function App() {
   const[discount, setDiscount] = useState(0);
   const[totals, setTotals] = useState(0);
 
+<<<<<<< HEAD
   const DatesCol = styled.div`
   border-right: 1px solid #ebebeb;
   padding: 10px 32px 10px 10px;
@@ -49,10 +55,33 @@ function App() {
     }
     background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
   }
+=======
+  const ColDates = styled.div`
+    transition: background-color .5s ease 0s;
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    padding: 10px 32px 10px 10px;
+    border-right: 1px solid #ebebeb;
+    &.checkIn {
+      &:hover {
+        background-color: ${checkInSelect ? '#ebebeb' : '#f4f4f4'}
+      }
+      background-color: ${checkInSelect ? '#ebebeb' : 'white'}
+    }
+    &.checkOut {
+      background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
+      }
+      &:hover {
+        background-color: ${checkOutSelect ? '#ebebeb' : '#f4f4f4'}
+      }
+    }
+>>>>>>> 7c8f095ea6929e022bd2f5e114198d71517b0e87
 `;
 
   useEffect( () => {
-    axios.get(`/50`)
+    axios.get(`http://127.0.0.1:3002/50`)
       .then((result) => {
         console.log("received data");
         setSiteData(result.data[0])
@@ -174,6 +203,7 @@ function App() {
         </Banner>
           <DatesAndGuests>
             <FlexRow>
+<<<<<<< HEAD
               <DatesCol className="checkIn" isSelected= {checkInSelect}>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </DatesCol>
@@ -183,6 +213,17 @@ function App() {
               <GuestCol>
                 <Guests maxGuests= {siteData.maxGuests}/>
               </GuestCol>
+=======
+              <ColDates className="checkIn" isSelected= {checkInSelect}>
+                <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
+              </ColDates>
+              <ColDates className= "checkout" isSelected= {checkOutSelect}>
+                <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
+              </ColDates>
+              <ColGuests>
+                <Guests maxGuests= {siteData.maxGuests}/>
+              </ColGuests>
+>>>>>>> 7c8f095ea6929e022bd2f5e114198d71517b0e87
             </FlexRow>
           </DatesAndGuests>
             <div>

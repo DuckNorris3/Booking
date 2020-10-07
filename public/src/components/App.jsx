@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import Price from './Price.jsx';
 import CheckIn from './CheckIn.jsx';
 import CheckOut from './CheckOut.jsx';
@@ -8,8 +10,11 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import { useParams } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import {
+  calculateNights,
+  calculateDiscount,
+  calculateTotal
+  } from '../utilityFunctions/priceUtilities.js'
 import {
   Banner,
   GuestCol,
@@ -60,7 +65,6 @@ function App() {
   useEffect( () => {
     axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
       .then((result) => {
-        console.log("received data");
         setSiteData(result.data[0])
       })
       .catch(err => {
@@ -69,15 +73,21 @@ function App() {
     }, []);
 
     useEffect(() => {
-      setNights(calculateNights());
+      if (siteData) {
+        setNights(calculateNights(checkIn, checkOut));
+      }
     }, [checkOut]);
 
     useEffect(() => {
-      setDiscount(calculateDiscount());
+      if (siteData) {
+        setDiscount(calculateDiscount(siteData.price, siteData.weekdayDisc, checkIn, checkOut));
+      }
     }, [nights]);
 
     useEffect(() => {
-      setTotals(calculateTotal());
+      if (siteData) {
+        setTotals(calculateTotal(nights, siteData.price, discount));
+      }
     }, [discount]);
 
 //HANDLING CHECKIN AND CHECKOUT
@@ -124,43 +134,6 @@ function App() {
     setCheckInSelect(true);
   };
 
-//PRICE CALCULATIONS
-  function calculateNights() {
-    if (checkOut) {
-      let count = 0;
-      let date = new Date(checkIn.toString());
-      let checkoutDate = new Date(checkOut.toString());
-      // while loop over check in date up to check out date
-      while (date < checkoutDate) {
-        count += 1;
-        date.setDate(date.getDate() + 1);
-      }
-      return count;
-    }
-  };
-
-  function calculateDiscount() {
-    if (nights) {
-      if (siteData.weekdayDisc) {
-        let amountOff = siteData.price * siteData.weekdayDisc;
-        let weeknightCount = 0;
-        let date = new Date(checkIn.toString());
-        let checkoutDate = new Date(checkOut.toString());
-        while (date < checkoutDate) {
-          let day = date.getDay();
-          if (day !== 0 && day !== 6) {
-            weeknightCount += 1;
-          }
-          date.setDate(date.getDate() + 1);
-        }
-        let totalSaved = amountOff * weeknightCount;
-        return totalSaved;
-      } else {
-        return 0;
-      }
-    }
-  };
-
   function calculateTotal() {
     if (nights) {
       let subTotal = siteData.price * nights;
@@ -169,7 +142,6 @@ function App() {
   }
 
   if (siteData) {
-    console.log(siteData);
     return (
       <div>
       <Container>

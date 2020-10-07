@@ -9,7 +9,8 @@ import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
 import styled, { css, keyframes } from 'styled-components';
-import { Banner,
+import {
+  Banner,
   ColGuests,
   Container,
   DatesAndGuests,
@@ -54,7 +55,7 @@ function App() {
   useEffect( () => {
     axios.get(`http://127.0.0.1:3002/50`)
       .then((result) => {
-        console.log("received data");
+        console.log("Booking received data");
         setSiteData(result.data[0])
       })
       .catch(err => {

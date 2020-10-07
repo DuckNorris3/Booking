@@ -20,10 +20,7 @@ import {
 } from '../styling/styledComponents';
 
 function App() {
-  debugger;
   const[siteData, setSiteData] = useState(null);
-  const { siteId } = useParams();
-
   const[checkIn, setCheckIn] = useState(null);
   const[checkOut, setCheckOut] = useState(null);
   const[checkInSelect, setCheckInSelect] = useState(false);
@@ -57,9 +54,9 @@ function App() {
 `;
 
   useEffect( () => {
-    axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
+    axios.get(`http://127.0.0.1:3002/50`)
       .then((result) => {
-        console.log("Booking received data");
+        console.log("received data");
         setSiteData(result.data[0])
       })
       .catch(err => {

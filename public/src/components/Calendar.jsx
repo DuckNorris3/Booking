@@ -1,14 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import {
-  Arrow,
-  Body,
-  Day,
-  Frame,
-  Header,
-  SmallText
-} from '../styling/styledComponents.js';
+import styled, { css, keyframes } from 'styled-components';
+import {Arrow, Body, Day, Frame, Header, SmallText} from '../styling/styledComponents.js';
 import Tooltip from "react-simple-tooltip";
 
   export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {

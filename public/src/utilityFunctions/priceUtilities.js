@@ -19,7 +19,6 @@ function calculateDiscount(priceRate, discountPercentage, checkInDate, checkOutD
   if (discountPercentage && checkOutDate) {
     let amountOff = priceRate * discountPercentage;
     let weeknightCount = 0;
-    debugger;
     let date = new Date(checkInDate.toString());
     let checkoutString = new Date(checkOutDate.toString());
     while (date < checkoutString) {

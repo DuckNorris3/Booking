@@ -54,11 +54,10 @@ function App() {
       background-color: ${checkInSelect ? '#ebebeb' : 'white'}
     }
     &.checkOut {
-      background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
-      }
       &:hover {
         background-color: ${checkOutSelect ? '#ebebeb' : '#f4f4f4'}
       }
+      background-color: ${checkOutSelect ? '#ebebeb' : 'white'}
     }
 `;
 
@@ -155,7 +154,7 @@ function App() {
               <DatesCol className="checkIn" isSelected= {checkInSelect}>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
               </DatesCol>
-              <DatesCol className= "checkout" isSelected= {checkOutSelect}>
+              <DatesCol className= "checkOut" isSelected= {checkOutSelect}>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
               </DatesCol>
               <GuestCol>

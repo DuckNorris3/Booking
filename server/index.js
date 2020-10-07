@@ -11,7 +11,7 @@ app.use(express.urlencoded());
 app.use(express.static(__dirname + '/../public/dist'));
 
 //BOOKING DATA REQUEST
-app.get('/:id', (req, res) => {
+app.get('/sites/:id', (req, res) => {
   var site = req.params;
   Sites.find({siteId : site.id}, (err, results) => {
     if (err) {

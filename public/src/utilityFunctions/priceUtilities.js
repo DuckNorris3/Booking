@@ -16,9 +16,10 @@ function calculateNights(checkInDate, checkOutDate) {
 };
 
 function calculateDiscount(priceRate, discountPercentage, checkInDate, checkOutDate) {
-  if (discountPercentage) {
+  if (discountPercentage && checkOutDate) {
     let amountOff = priceRate * discountPercentage;
     let weeknightCount = 0;
+    debugger;
     let date = new Date(checkInDate.toString());
     let checkoutString = new Date(checkOutDate.toString());
     while (date < checkoutString) {

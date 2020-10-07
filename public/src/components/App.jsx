@@ -10,7 +10,11 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import { calculateNights } from '../utilityFunctions/priceUtilities.js'
+import {
+  calculateNights,
+  calculateDiscount,
+  calculateTotal
+  } from '../utilityFunctions/priceUtilities.js'
 import {
   Banner,
   GuestCol,
@@ -70,15 +74,21 @@ function App() {
     }, []);
 
     useEffect(() => {
-      setNights(calculateNights(checkOut, checkIn));
+      if (siteData) {
+        setNights(calculateNights(checkIn, checkOut));
+      }
     }, [checkOut]);
 
     useEffect(() => {
-      setDiscount(calculateDiscount());
+      if (siteData) {
+        setDiscount(calculateDiscount(siteData.price, siteData.weekdayDisc, checkIn, checkOut));
+      }
     }, [nights]);
 
     useEffect(() => {
-      setTotals(calculateTotal());
+      if (siteData) {
+        setTotals(calculateTotal(nights, siteData.price, discount));
+      }
     }, [discount]);
 
 //HANDLING CHECKIN AND CHECKOUT
@@ -130,27 +140,7 @@ function App() {
 
   //add args to calculate, extract utilities functions
   //calculateDiscount(nights, )
-  function calculateDiscount() {
-    if (nights) {
-      if (siteData.weekdayDisc) {
-        let amountOff = siteData.price * siteData.weekdayDisc;
-        let weeknightCount = 0;
-        let date = new Date(checkIn.toString());
-        let checkoutDate = new Date(checkOut.toString());
-        while (date < checkoutDate) {
-          let day = date.getDay();
-          if (day !== 0 && day !== 6) {
-            weeknightCount += 1;
-          }
-          date.setDate(date.getDate() + 1);
-        }
-        let totalSaved = amountOff * weeknightCount;
-        return totalSaved;
-      } else {
-        return 0;
-      }
-    }
-  };
+
 
   function calculateTotal() {
     if (nights) {

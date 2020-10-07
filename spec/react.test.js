@@ -7,7 +7,11 @@ import { MemoryRouter} from 'react-router';
 configure({ adapter: new Adapter() });
 
 import App from '../public/src/components/App.jsx';
-import { calculateNights } from '../public/src/utilityFunctions/priceUtilities.js'
+import {
+  calculateNights,
+  calculateDiscount,
+  calculateTotal
+ } from '../public/src/utilityFunctions/priceUtilities.js'
 
 describe('test front end', () => {
   test('nothing is real', () => {
@@ -30,8 +34,29 @@ describe('test front end', () => {
   });
 
   test('calculateNights returns nights btwn checkIn and checkOut dates', () => {
-    expect(calculateNights('Wed Oct 07 2020', 'Mon Oct 05 2020')).toBe(2);
+    expect(calculateNights('Mon Oct 05 2020', 'Wed Oct 07 2020')).toBe(2);
   })
+
+  test('calculateDiscount returns amount saved for all weeknight stay', () => {
+    expect(calculateDiscount(50, .2, 'Mon Oct 05 2020', 'Wed Oct 07 2020')).toBe(20);
+  })
+
+  test('calculateDiscount returns amount saved for mixed weeknights and weekends', () => {
+    expect(calculateDiscount(50, .2, 'Sat Oct 10 2020', 'Tues Oct 13 2020')).toBe(10);
+  })
+
+  test('calculateDiscount returns 0 if price is 0', () => {
+    expect(calculateDiscount(0, .2, 'Mon Oct 05 2020', 'Wed Oct 07 2020')).toBe(0);
+  })
+
+  test('if there is a discount, calculateTotal returns total less discount total', () => {
+    expect(calculateTotal(4, 50, 30)).toBe(170);
+  })
+
+  test('if no nights entered, calculateTotal returns 0', () => {
+    expect(calculateTotal(0, 50, 30)).toBe(0);
+  })
+
 });
 
 //unit test-- for utilities -- make sure to include scenarios where it could potentially (include 0 input for nights)

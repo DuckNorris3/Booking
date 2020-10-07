@@ -1,5 +1,5 @@
 //PRICE CALCULATIONS
-function calculateNights(checkOutDate, checkInDate) {
+function calculateNights(checkInDate, checkOutDate) {
   console.log(typeof checkOutDate, "checkout", checkInDate, "checkin")
   if (checkOutDate) {
     let count = 0;
@@ -11,7 +11,42 @@ function calculateNights(checkOutDate, checkInDate) {
       date.setDate(date.getDate() + 1);
     }
     return count;
+  } else {
+    return 0;
   }
 };
 
-export { calculateNights }
+function calculateDiscount(priceRate, discountPercentage, checkInDate, checkOutDate) {
+  if (discountPercentage) {
+    let amountOff = priceRate * discountPercentage;
+    let weeknightCount = 0;
+    let date = new Date(checkInDate.toString());
+    let checkoutString = new Date(checkOutDate.toString());
+    while (date < checkoutString) {
+      let day = date.getDay();
+      if (day !== 0 && day !== 6) {
+        weeknightCount += 1;
+      }
+      date.setDate(date.getDate() + 1);
+    }
+    let totalSaved = amountOff * weeknightCount;
+    return totalSaved;
+  } else {
+    return 0;
+  }
+};
+
+function calculateTotal(nightCount, price, discountTotal) {
+  if (nightCount) {
+    let subTotal = price * nightCount;
+    return subTotal - discountTotal;
+  } else {
+    return 0;
+  }
+}
+
+export {
+  calculateNights,
+  calculateDiscount,
+  calculateTotal
+ }

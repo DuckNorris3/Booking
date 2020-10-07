@@ -7,7 +7,7 @@ import { MemoryRouter} from 'react-router';
 configure({ adapter: new Adapter() });
 
 import App from '../public/src/components/App.jsx';
-import Calendar from '../public/src/components/Calendar.jsx';
+import { calculateNights } from '../public/src/utilityFunctions/priceUtilities.js'
 
 describe('test front end', () => {
   test('nothing is real', () => {
@@ -28,8 +28,13 @@ describe('test front end', () => {
     expect(wrapper.find('Guests')).toBeTruthy();
     expect(wrapper.find('BookButton')).toBeTruthy();
   });
+
+  test('calculateNights returns nights btwn checkIn and checkOut dates', () => {
+    expect(calculateNights('Wed Oct 07 2020', 'Mon Oct 05 2020')).toBe(2);
+  })
 });
 
 //unit test-- for utilities -- make sure to include scenarios where it could potentially (include 0 input for nights)
+
 
 

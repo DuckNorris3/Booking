@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import Price from './Price.jsx';
 import CheckIn from './CheckIn.jsx';
 import CheckOut from './CheckOut.jsx';
@@ -8,8 +10,7 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import { useParams } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import { calculateNights } from '../utilityFunctions/priceUtilities.js'
 import {
   Banner,
   GuestCol,
@@ -69,7 +70,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-      setNights(calculateNights());
+      setNights(calculateNights(checkOut, checkIn));
     }, [checkOut]);
 
     useEffect(() => {
@@ -125,20 +126,10 @@ function App() {
   };
 
 //PRICE CALCULATIONS
-  function calculateNights() {
-    if (checkOut) {
-      let count = 0;
-      let date = new Date(checkIn.toString());
-      let checkoutDate = new Date(checkOut.toString());
-      // while loop over check in date up to check out date
-      while (date < checkoutDate) {
-        count += 1;
-        date.setDate(date.getDate() + 1);
-      }
-      return count;
-    }
-  };
 
+
+  //add args to calculate, extract utilities functions
+  //calculateDiscount(nights, )
   function calculateDiscount() {
     if (nights) {
       if (siteData.weekdayDisc) {

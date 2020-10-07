@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Select, SmallText, Label } from '../styling/styledComponents';
+import {
+  Select,
+  SmallText,
+  Label
+} from '../styling/styledComponents';
 
 const CheckIn = ({checkIn, handleClick, showCalendar, checkInSelect}) => {
   if (!checkIn) {

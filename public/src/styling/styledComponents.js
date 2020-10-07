@@ -118,9 +118,8 @@ const Button = styled.button`
   }
 `;
 
-const GuestsCol = styled.div`
-padding: 10px;
-padding: 10px 10px 10px 18px;
+const GuestCol = styled.div`
+  padding: 10px 10px 10px 18px;
 `;
 
 const Container = styled.div`
@@ -240,7 +239,7 @@ export {
   Banner,
   Body,
   Button,
-  GuestsCol,
+  GuestCol,
   Container,
   DatesAndGuests,
   Day,

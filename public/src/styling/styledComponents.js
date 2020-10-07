@@ -119,10 +119,14 @@ const Button = styled.button`
 `;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const GuestCol = styled.div`
   padding: 10px 10px 10px 18px;
 =======
 const ColGuests = styled.div`
+=======
+const GuestsCol = styled.div`
+>>>>>>> c27e9453a8d0dc381bce56ec545b257a3b9334c4
 padding: 10px;
 padding: 10px 10px 10px 18px;
 >>>>>>> 7c8f095ea6929e022bd2f5e114198d71517b0e87
@@ -245,11 +249,7 @@ export {
   Banner,
   Body,
   Button,
-<<<<<<< HEAD
-  GuestCol,
-=======
   ColGuests,
->>>>>>> 7c8f095ea6929e022bd2f5e114198d71517b0e87
   Container,
   DatesAndGuests,
   Day,

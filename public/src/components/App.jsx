@@ -8,9 +8,11 @@ import Guests from './Guests.jsx';
 import { Calendar } from './Calendar.jsx';
 import RequestBooking from './BookButton.jsx';
 import Totals from './Totals.jsx';
-import styled, { css, keyframes } from 'styled-components';
-import { Banner,
-  ColGuests,
+import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import {
+  Banner,
+  GuestsCol,
   Container,
   DatesAndGuests,
   FlexRow,
@@ -28,7 +30,7 @@ function App() {
   const[discount, setDiscount] = useState(0);
   const[totals, setTotals] = useState(0);
 
-  const ColDates = styled.div`
+  const DatesCol = styled.div`
     transition: background-color .5s ease 0s;
     transition-property: background-color;
     transition-duration: .5s;
@@ -174,15 +176,15 @@ function App() {
         </Banner>
           <DatesAndGuests>
             <FlexRow>
-              <ColDates className="checkIn" isSelected= {checkInSelect}>
+              <DatesCol className="checkIn" isSelected= {checkInSelect}>
                 <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
-              </ColDates>
-              <ColDates className= "checkout" isSelected= {checkOutSelect}>
+              </DatesCol>
+              <DatesCol className= "checkout" isSelected= {checkOutSelect}>
                 <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
-              </ColDates>
-              <ColGuests>
+              </DatesCol>
+              <GuestsCol>
                 <Guests maxGuests= {siteData.maxGuests}/>
-              </ColGuests>
+              </GuestsCol>
             </FlexRow>
           </DatesAndGuests>
             <div>

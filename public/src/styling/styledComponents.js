@@ -178,7 +178,7 @@ const Prices = styled.span`
   color: black;
   font-size: 10px;
   font-weight: 800;
-  &.right {
+  &.black {
     font-weight: 400;
     float: right;
     padding-top: 5px;

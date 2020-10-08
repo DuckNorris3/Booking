@@ -5,7 +5,7 @@ import {
   Label
 } from '../styling/styledComponents';
 
-const CheckOut = ({checkOut, handleClick, showCalendar}) => {
+const CheckOut = ({checkOut, handleClick, calendarVisible}) => {
   if (!checkOut) {
     return (
       <Select onClick= { () => handleClick() }>

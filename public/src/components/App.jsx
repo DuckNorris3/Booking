@@ -30,14 +30,14 @@ function App() {
 
   const { siteId } = useParams();
 
-  const[checkIn, setCheckIn] = useState(null);
-  const[checkOut, setCheckOut] = useState(null);
+  const[checkInDate, setCheckInDate] = useState(null);
+  const[checkOutDate, setCheckOutDate] = useState(null);
   const[checkInSelect, setCheckInSelect] = useState(false);
   const[checkOutSelect, setCheckOutSelect] = useState(false);
-  const[showCalendar, setShowCalendar] = useState(false);
+  const[calendarVisible, setCalendarVisible] = useState(false);
   const[nights, setNights] = useState(0);
   const[discount, setDiscount] = useState(0);
-  const[totals, setTotals] = useState(0);
+  const[subtotal, setSubtotal] = useState(0);
 
   const DatesCol = styled.div`
     transition: background-color .5s ease 0s;
@@ -73,42 +73,42 @@ function App() {
 
     useEffect(() => {
       if (siteData) {
-        setNights(calculateNights(checkIn, checkOut));
+        setNights(calculateNights(checkInDate, checkOutDate));
       }
-    }, [checkOut]);
+    }, [checkOutDate]);
 
     useEffect(() => {
       if (siteData) {
-        setDiscount(calculateDiscount(siteData.price, siteData.weekdayDisc, checkIn, checkOut));
+        setDiscount(calculateDiscount(siteData.price, siteData.weekdayDisc, checkInDate, checkOutDate));
       }
     }, [nights]);
 
     useEffect(() => {
       if (siteData) {
-        setTotals(calculateTotal(nights, siteData.price, discount));
+        setSubtotal(calculateTotal(nights, siteData.price, discount));
       }
     }, [nights]);
 
 //HANDLING CHECKIN AND CHECKOUT
 
-  function updateCheckInOut(date, checkIn, checkOut) {
-    const dateString = date.toString().split(' ').slice(0, 4).join(' ');
-    if(!checkIn || checkInSelect || date < new Date(checkIn.toString())) {
-      setCheckIn(dateString);
-      setCheckOut(null);
+  function updateCheckInOut(selectedDate, checkInDate, checkOutDate) {
+    const dateString = selectedDate.toString().split(' ').slice(0, 4).join(' ');
+    if(!checkInDate || checkInSelect || selectedDate < new Date(checkInDate.toString())) {
+      setCheckInDate(dateString);
+      setCheckOutDate(null);
       setCheckOutSelect(true);
       setCheckInSelect(false);
-    } else if (checkIn) {
-      setCheckOut(dateString);
+    } else if (checkInDate) {
+      setCheckOutDate(dateString);
       setCheckOutSelect(false);
-      setShowCalendar(false);
+      setCalendarVisible(false);
     }
   };
 
 //SELECTING VIEWS
   function selectCheckIn() {
-    if(!showCalendar) {
-      setShowCalendar(true);
+    if(!calendarVisible) {
+      setCalendarVisible(true);
     }
     if (!checkInSelect) {
       setCheckInSelect(true);
@@ -117,10 +117,10 @@ function App() {
   };
 
   function selectCheckOut() {
-    if(!showCalendar) {
-      setShowCalendar(true);
+    if(!calendarVisible) {
+      setCalendarVisible(true);
     }
-    if (!checkOutSelect && checkIn) {
+    if (!checkOutSelect && checkInDate) {
       setCheckOutSelect(true);
       setCheckInSelect(false);
     } else {
@@ -129,7 +129,7 @@ function App() {
   };
 
   function initialButtonClick() {
-    setShowCalendar(true);
+    setCalendarVisible(true);
     setCheckInSelect(true);
   };
 
@@ -139,16 +139,16 @@ function App() {
       <Container>
         <Banner>
           <Wrapper>
-            <Price price= {siteData.price} totals= {totals} nights= {nights}/>
+            <Price price= {siteData.price} total= {subtotal} nights= {nights}/>
           </Wrapper>
         </Banner>
           <DatesAndGuests>
             <FlexRow>
               <DatesCol className="checkIn" isSelected= {checkInSelect}>
-                <CheckIn checkIn= {checkIn} handleClick= { () => selectCheckIn() } showCalendar= {showCalendar} checkInSelect= {checkInSelect} />
+                <CheckIn checkIn= {checkInDate} handleClick= { () => selectCheckIn() } calendarVisible= {calendarVisible} checkInSelect= {checkInSelect} />
               </DatesCol>
               <DatesCol className= "checkOut" isSelected= {checkOutSelect}>
-                <CheckOut checkOut= {checkOut} handleClick= { () => selectCheckOut() } showCalendar= {showCalendar}/>
+                <CheckOut checkOut= {checkOutDate} handleClick= { () => selectCheckOut() } calendarVisible= {calendarVisible}/>
               </DatesCol>
               <GuestCol>
                 <Guests maxGuests= {siteData.maxGuests}/>
@@ -156,13 +156,13 @@ function App() {
             </FlexRow>
           </DatesAndGuests>
             <div>
-              <Totals showCalendar= {showCalendar} checkOut= {checkOut} totals= {totals} discount= {discount} nights= {nights}/>
+              <Totals calendarVisible= {calendarVisible} checkOut= {checkOutDate} total= {subtotal} discount= {discount} nights= {nights}/>
             </div>
           <div>
-            <RequestBooking handleClick= { () => initialButtonClick() } showCalendar= {showCalendar} checkIn= {checkIn} checkOut= {checkOut} />
+            <RequestBooking handleClick= { () => initialButtonClick() } calendarVisible= {calendarVisible} checkIn= {checkInDate} checkOut= {checkOutDate} />
           </div>
         <div>
-          <Calendar showCalendar= {showCalendar} handleClick= {(date) => updateCheckInOut(date, checkIn, checkOut)} availability= {siteData.availability[0]} checkIn= {checkIn} checkOut= {checkOut} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
+          <Calendar calendarVisible= {calendarVisible} handleClick= {(date) => updateCheckInOut(date, checkInDate, checkOutDate)} availability= {siteData.availability[0]} checkIn= {checkInDate} checkOut= {checkOutDate} checkInSelect= {checkInSelect} checkOutSelect= {checkOutSelect}/>
         </div>
       </Container>
     </div>

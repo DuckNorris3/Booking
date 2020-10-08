@@ -12,7 +12,7 @@ import {
 } from '../styling/styledComponents.js';
 
 
-  export function Calendar({showCalendar, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
+  export function Calendar({calendarVisible, handleClick, availability, checkIn, checkOut, checkInSelect, checkOutSelect}) {
     const DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const DAYS_OF_THE_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -53,8 +53,8 @@ import {
     //onClick function which saves date value and passes it to Appf
     return (
       <Frame
-        render= {showCalendar}
-        hide= {!showCalendar}
+        render= {calendarVisible}
+        hide= {!calendarVisible}
       >
         <Header>
           <Arrow

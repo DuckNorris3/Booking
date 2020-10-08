@@ -2,10 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Button, Well } from '../styling/styledComponents';
 
-const RequestBooking = ({handleClick, showCalendar, checkIn, checkOut}) => {
-  if(!showCalendar) {
+const RequestBooking = ({handleClick, calendarVisible, checkIn, checkOut}) => {
+  if(!calendarVisible) {
     return (
-      <Well render= {!showCalendar} hide= {showCalendar}>
+      <Well render= {!calendarVisible} hide= {calendarVisible}>
         <Button onClick= {checkIn && checkOut ? () => {} : () =>  handleClick()}>
           Request Booking
         </Button>

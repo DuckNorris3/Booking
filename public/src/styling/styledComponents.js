@@ -148,7 +148,7 @@ const FlexRow = styled.div`
   margin-right: 0;
 `;
 const Label = styled.div`
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
 `;
@@ -158,7 +158,7 @@ const Money = styled.div`
 align-items: center;
 display: flex;
 color: #333333;
-font-size: 14px;
+font-size: 16px;
 font-weight: 700;
 line-height: 0.9;
 margin: 2px 0 0;

@@ -13,15 +13,13 @@ const Body = styled.div`
 `;
 
 const Day = styled.div`
-  width: 13.97%;
+  width: 14.27%;
   height: 30px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   cursor: pointer;
   color: #333333;
-  border-top: .1px solid #ebebeb;
-  border-right: .1px solid #ebebeb;
   ${props =>
     props.initial &&
     css `
@@ -150,7 +148,7 @@ const FlexRow = styled.div`
   margin-right: 0;
 `;
 const Label = styled.div`
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   cursor: pointer;
 `;
@@ -160,7 +158,7 @@ const Money = styled.div`
 align-items: center;
 display: flex;
 color: #333333;
-font-size: 14px;
+font-size: 16px;
 font-weight: 700;
 line-height: 0.9;
 margin: 2px 0 0;
@@ -180,7 +178,7 @@ const Prices = styled.span`
   color: black;
   font-size: 10px;
   font-weight: 800;
-  &.right {
+  &.black {
     font-weight: 400;
     float: right;
     padding-top: 5px;

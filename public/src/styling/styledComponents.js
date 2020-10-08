@@ -13,15 +13,13 @@ const Body = styled.div`
 `;
 
 const Day = styled.div`
-  width: 13.97%;
+  width: 14.27%;
   height: 30px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   cursor: pointer;
   color: #333333;
-  border-top: .1px solid #ebebeb;
-  border-right: .1px solid #ebebeb;
   ${props =>
     props.initial &&
     css `

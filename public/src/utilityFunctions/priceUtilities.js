@@ -1,8 +1,6 @@
 //PRICE CALCULATIONS
 function calculateNights(checkInDate, checkOutDate) {
-
   if (checkOutDate) {
-
     let count = 0;
     let date = new Date(checkInDate.toString());
     let checkoutString = new Date(checkOutDate.toString());

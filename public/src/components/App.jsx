@@ -87,7 +87,7 @@ function App() {
       if (siteData) {
         setTotals(calculateTotal(nights, siteData.price, discount));
       }
-    }, [discount]);
+    }, [nights]);
 
 //HANDLING CHECKIN AND CHECKOUT
 
@@ -132,13 +132,6 @@ function App() {
     setShowCalendar(true);
     setCheckInSelect(true);
   };
-
-  function calculateTotal() {
-    if (nights) {
-      let subTotal = siteData.price * nights;
-      return subTotal - discount;
-    }
-  }
 
   if (siteData) {
     return (

@@ -7,10 +7,12 @@ const Totals = ({showCalendar, checkOut, totals, discount}) => {
     return (
       <div>
         <Well render= {!showCalendar} hide= {showCalendar}>
-          <Prices>Weeknight savings</Prices>  <Prices className= "red">-${discount}.00</Prices>
+          <Prices>Weeknight savings</Prices>
+          <Prices className= "red">-${discount.toFixed(2)}</Prices>
         </Well>
         <Well render= {!showCalendar} hide= {showCalendar}>
-        <Prices>Subtotal</Prices><Prices className= "right">${totals}.00</Prices>
+          <Prices>Subtotal</Prices>
+          <Prices className= "right">${totals.toFixed(2)}</Prices>
         </Well>
       </div>
     )

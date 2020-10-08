@@ -1,15 +1,11 @@
 //PRICE CALCULATIONS
 function calculateNights(checkInDate, checkOutDate) {
   if (checkOutDate) {
-    let count = 0;
-    let date = new Date(checkInDate.toString());
-    let checkoutString = new Date(checkOutDate.toString());
-    // while loop over check in date up to check out date
-    while (date < checkoutString) {
-      count += 1;
-      date.setDate(date.getDate() + 1);
-    }
-    return count;
+    let checkInDateObject = new Date(checkInDate);
+    let checkOutDateObject = new Date(checkOutDate);
+    let msBetween = checkOutDateObject.getTime() - checkInDateObject.getTime();
+    let totalNights = msBetween/(1000*60*60*24);
+    return totalNights;
   } else {
     return 0;
   }
@@ -19,14 +15,14 @@ function calculateDiscount(priceRate, discountPercentage, checkInDate, checkOutD
   if (discountPercentage && checkOutDate) {
     let amountOff = priceRate * discountPercentage;
     let weeknightCount = 0;
-    let date = new Date(checkInDate.toString());
-    let checkoutString = new Date(checkOutDate.toString());
-    while (date < checkoutString) {
-      let day = date.getDay();
-      if (day !== 0 && day !== 6) {
+    let dateToCheck = new Date(checkInDate);
+    let checkOutDateObject = new Date(checkOutDate);
+    while (dateToCheck < checkOutDateObject) {
+      let dayOfWeek = dateToCheck.getDay();
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
         weeknightCount += 1;
       }
-      date.setDate(date.getDate() + 1);
+      dateToCheck.setDate(dateToCheck.getDate() + 1);
     }
     let totalSaved = amountOff * weeknightCount;
     return totalSaved;

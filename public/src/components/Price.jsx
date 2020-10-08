@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { SmallText, Money } from '../styling/styledComponents';
 
-const Price = ({price, nights, totals}) => {
-  if (totals) {
-    let avgPrice = totals/nights;
+const Price = ({price, nights, total}) => {
+  if (total) {
+    let avgPrice = total/nights;
     return (
       <div>
         <Money>${Math.floor(avgPrice)}</Money>

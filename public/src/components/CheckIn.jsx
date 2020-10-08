@@ -6,7 +6,7 @@ import {
   Label
 } from '../styling/styledComponents';
 
-const CheckIn = ({checkIn, handleClick, showCalendar, checkInSelect}) => {
+const CheckIn = ({checkIn, handleClick, calendarVisible, checkInSelect}) => {
   if (!checkIn) {
     return (
       <Select onClick= { () => handleClick() }>

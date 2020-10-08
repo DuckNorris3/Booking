@@ -12,10 +12,18 @@ app.use(express.static(__dirname + '/../public/dist'));
 
 //BOOKING DATA REQUEST
 app.get('/sites/:id', (req, res) => {
+  console.log(req.params, "request")
   var site = req.params;
   Sites.find({siteId : site.id}, (err, results) => {
+    console.log("results", results)
     if (err) {
-      console.log(err);
+      console.error(err);
+      res.status(404).send('Site not available');
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).send('Site not available');
+      return;
     }
     res.status(200).send(results);
   });

@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/tentHop');
+const dotenv = require('dotenv');
+dotenv.config();
+const dbURI = process.env.MONGOOSE_URI;
+
+const db = mongoose.connect(dbURI);
+
+
 
 module.exports.connect = db;

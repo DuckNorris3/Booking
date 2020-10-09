@@ -1,7 +1,9 @@
 const express = require('express');
 const Sites = require('../db/Site.js');
 const cors = require('cors');
-const PORT = process.env.port || 3002;
+const dotenv = require('dotenv');
+dotenv.config();
+const PORT = process.env.PORT || 3002;
 const app = express();
 app.use(cors());
 app.use(express.json());

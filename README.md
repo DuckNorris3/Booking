@@ -5,7 +5,7 @@
 ## Related Projects
 
  - https://github.com/DuckNorris3/Campsite-Host-Info
- - https://github.com/DuckNorris3/...
+ - https://github.com/DuckNorris3/Owen-Photos
  - https://github.com/DuckNorris3/Claire-Proxy
 
 ## Table of Contents
@@ -18,14 +18,12 @@
 
 > Seed database: npm run db-seed
 > Start server: npm start
-> Transpile front-end: npm run build
+> Production transpile react: npm run build
 
 ## Requirements
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
+- Node v12.18.3
 
-- Node 6.13.0
-- etc
 
 ## Development
 
@@ -33,7 +31,6 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 From within the root directory:
 
-```sh
 npm install -g webpack
 npm install
-```
+

@@ -8,29 +8,15 @@
  - https://github.com/DuckNorris3/Owen-Photos
  - https://github.com/DuckNorris3/Claire-Proxy
 
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-
 ## Usage
-
-> Seed database: npm run db-seed
+> Install dependencies: npm install
+> Seed mongodb database: npm run db-seed
 > Start server: npm start
-> Production transpile react: npm run build
+> webpack bundle watch for development: npm run react-dev
+> webpack bundle for production: npm run build
 
 ## Requirements
 
 - Node v12.18.3
 
-
-## Development
-
-### Installing Dependencies
-
-From within the root directory:
-
-npm install -g webpack
-npm install
 

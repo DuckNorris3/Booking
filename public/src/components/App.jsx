@@ -62,7 +62,7 @@ function App() {
 `;
 
   useEffect( () => {
-    axios.get(`http://127.0.0.1:3002/sites/${siteId}`)
+    axios.get(`http://ec2-18-191-178-202.us-east-2.compute.amazonaws.com:3002/sites/${siteId}`)
       .then((result) => {
         setSiteData(result.data[0])
       })

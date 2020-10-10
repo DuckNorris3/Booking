@@ -1,5 +1,5 @@
 const express = require('express');
-const Sites = require('../db/Site.js');
+const Site = require('../db/Site.js');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/../public/dist'));
 app.get('/sites/:id', (req, res) => {
   console.log(req.params, "request")
   var site = req.params;
-  Sites.find({siteId : site.id}, (err, results) => {
+  Site.find({siteId : site.id}, (err, results) => {
     console.log("results", results)
     if (err) {
       console.error(err);
@@ -40,7 +40,7 @@ app.get('/api/test', async (req, res) => {
 });
 
 let server;
-const start = () => { server = app.listen(PORT, () => {}) };
+const start = () => { server = app.listen(PORT, () => { console.log(`Listening on port ${PORT}`)}) };
 const close = server ? server.close : () => {};
 
 module.exports = {

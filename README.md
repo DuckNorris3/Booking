@@ -9,10 +9,17 @@
  - https://github.com/DuckNorris3/Claire-Proxy
 
 ## Usage
+
 > Install dependencies: npm install
+
+> Use .env.example to create .env file
+
 > Seed mongodb database: npm run db-seed
+
 > Start server: npm start
+
 > webpack bundle watch for development: npm run react-dev
+
 > webpack bundle for production: npm run build
 
 ## Requirements

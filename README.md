@@ -10,17 +10,23 @@
 
 ## Usage
 
+> From root directory:
+
 > Install dependencies: npm install
 
 > Use .env.example to create .env file
 
 > Seed mongodb database: npm run db-seed
 
+> In their own terminal:
+
 > Start server: npm start
 
-> webpack bundle watch for development: npm run react-dev
+> webpack bundle watch for development: npm run react-dev or
 
 > webpack bundle for production: npm run build
+
+> To access in browser, visit http://localhost:3002/sites/ + number 1-100 for example: http://localhost:3002/sites/50 will load the booking widget with data for siteId 50
 
 ## Requirements
 
